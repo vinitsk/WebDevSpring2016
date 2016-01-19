@@ -5,4 +5,12 @@ var port = process.env.OPENSHIFT_NODEJS_PORT || 3000;
 app.get('/hello', function(req, res){
     res.send('hello world');
 });
+app.get('/api/users', function(req,res){
+    var user =[
+        {'username' :'bob1', 'first':'bob', 'last':'marley'},
+        {'username' :'bob2', 'first':'bob', 'last':'marley'},
+        {'username' :'bob3', 'first':'bob', 'last':'marley'}
+    ];
+    res.json(user);
+});
 app.listen(port, ipaddress);
