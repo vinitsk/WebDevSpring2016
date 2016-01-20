@@ -6,7 +6,7 @@ app.use(express.static(__dirname + '/public'));
 app.get('/hello', function(req, res){
     res.send('hello world');
 });
-app.get('/api/users', function(req,res){
+app.get('/api/user  s', function(req,res){
     var user =[
         {'username' :'bob1', 'first':'bob', 'last':'marley'},
         {'username' :'bob2', 'first':'bob', 'last':'marley'},
