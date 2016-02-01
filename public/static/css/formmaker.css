@@ -22,3 +22,9 @@
 .no-top-margin{
     margin-top: 0px;
 }
+.right-align {
+    float: right !important;
+}
+.full-width{
+    width: 100%;
+}
