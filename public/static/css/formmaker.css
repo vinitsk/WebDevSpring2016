@@ -1,3 +1,15 @@
 .full-button-width{
     width: 100%;
 }
+.top-margin-10{
+    margin-top: 10px;
+}
+.top-margin-15{
+    margin-top: 15px;
+}
+.no-padding{
+    padding: 0 0 0 0;
+}
+.no-left-padding{
+    padding-left: 0px;
+}
