@@ -29,7 +29,8 @@
                     <td><input id="title" ng-model="movie.title" class="form-control"/></td>
                     <td><input id="director" ng-model="movie.director" class="form-control"/></td>
                     <td>
-                        <button type="submit" class="btn btn-primary" ng-click="addMovie()">Add Movie</button>
+                        <button type="submit" class="btn btn-primary" ng-click="addMovie()">Add</button>
+                        <button type="submit" class="btn btn-primary" ng-click="updateMovie()">Update</button>
                     </td>
                 </div>
             </tr>
@@ -40,7 +41,8 @@
                 <td>{{m.id}}</td>
                 <td>{{m.title}}</td>
                 <td>{{m.director}}</td>
-                <td><button ng-click="deleteMovie($index)" class="btn btn-danger">Delete</button></td>
+                <td><button ng-click="deleteMovie(m)" class="btn btn-danger">Delete</button>
+                <button ng-click="selectMovie(m)" class="btn btn-primary">Select</button></td>
             </tr>
             </tbody>
         </table>
