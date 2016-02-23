@@ -54,10 +54,11 @@
 .bg-text::after {
     color: #fff;
     content: attr(data-bg-text);
-    /*display: block;*/
-    font-size: 17rem;
+    display: block;
+    font-size: 10rem;
     line-height: 1;
     position: absolute;
-    bottom: -15px;
-    right: 10px;
+    bottom: -30px;
+    right: 20px;
 }
+
