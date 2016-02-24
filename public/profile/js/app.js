@@ -1,3 +1,3 @@
 (function (){
-    angular.module("profileApp",["ngRoute"]);
+    angular.module("profileApp",["ngRoute","ngMaterial","ngMessages"]);
 })();
