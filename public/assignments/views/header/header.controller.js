@@ -5,9 +5,11 @@
 (function () {
     angular
         .module("FormMakerApp")
-        .controller("HomeController",HomeController)
+        .controller("HeaderController",HeaderController)
 
-    function HomeController(){
+    function HeaderController($location, $scope){
+
+        $scope.$location = $location;
 
     };
 })();

@@ -5,9 +5,9 @@
 (function () {
     angular
         .module("FormMakerApp")
-        .controller("RegisterController",RegisterController)
+        .controller("FieldsController",FieldsController)
 
-    function RegisterController(){
+    function FieldsController(){
 
     };
 })();
