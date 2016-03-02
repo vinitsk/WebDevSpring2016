@@ -7,14 +7,12 @@
         .module("MovieApp")
         .controller("DetailController",DetailController);
 
-    function DetailController($scope,$routeParams,$http){
+    function DetailController($scope,$routeParams,$http,MovieService){
 
         var imdbID = $routeParams.imdbID;
-        $http.get("http://www.omdbapi.com/?i="+imdbID)
-            .success(render);
+        MovieService.findMovieById(imdbID,render);
 
         function render(response){
-            //console.log(response);
             $scope.movie = response;
         }
 

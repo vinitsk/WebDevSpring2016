@@ -7,7 +7,7 @@
         .module("MovieApp")
         .controller("SearchController",SearchController);
 
-    function SearchController($scope,$http,$routeParams,$location){
+    function SearchController($scope,$http,$routeParams,$location,MovieService){
 
         $scope.title = "Star Wars";
         var url_title = $routeParams.title;
@@ -22,8 +22,7 @@
         function search(title){
 
             $location.url("/search/"+title);
-            $http.get("http://www.omdbapi.com/?s="+title)
-                .success(render);
+            MovieService.findMoviesByTitle(title,render);
 
             function render(response){
                 $scope.data = response;
