@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="FormMakerApp">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="../../favicon.ico">
+
+    <title>Form Maker</title>
+
+    <!-- Bootstrap core CSS -->
+    <!--Todo: Remove Direct Reference-->
+    <!--<link href="../../static/css/bootstrap.css" rel="stylesheet">-->
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"
+          integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+
+    <!-- Custom styles for this template -->
+    <link href="../../css/dashboard.css" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.9/angular.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.9/angular-route.min.js"></script>
+    <script src="../../js/app.js"></script>
+    <script src="../../js/config.js"></script>
+    <script src="../home/home.controller.js"></script>
+</head>
+<body>
+
+<!--Header-->
+<div ng-include="'../header/header.view.html'"></div>
+
+<div class="container-fluid">
+    <div class="row">
+        <!--Sidebar-->
+        <div ng-include="'../sidebar/sidebar.view.html'"></div>
+        <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main co">
+            <div class="row">
+                <h1 class="page-header">Welcome !</h1>
+            </div>
+            <div class="row">
+                <div class="col-lg-6">
+                    <P>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla quam velit, vulputate eu pharetra
+                        nec, mattis ac neque. Duis vulputate commodo lectus, ac blandit elit tincidunt id. Sed rhoncus,
+                        tortor sed eleifend tristique, tortor mauris molestie elit, et lacinia ipsum quam nec dui.
+                        Quisque nec mauris sit amet elit iaculis pretium sit amet quis magna. Aenean velit odio,
+                        elementum in tempus ut, vehicula eu diam. Pellentesque rhoncus aliquam mattis. Ut vulputate eros
+                        sed felis sodales nec vulputate justo hendrerit. Vivamus varius pretium ligula, a aliquam odio
+                        euismod sit amet. Quisque laoreet sem sit amet orci ullamcorper at ultricies metus viverra.
+                        Pellentesque arcu mauris, malesuada quis ornare accumsan, blandit sed diam.</P>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Bootstrap core JavaScript
+================================================== -->
+<!--Placed at the end of the document so the pages load faster `-->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<script>window.jQuery || document.write('<script src="../../assets/js/vendor/jquery.min.js"><\/script>')</script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"
+        integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS"
+        crossorigin="anonymous"></script>
+
+</body>
+</html>
