@@ -8,10 +8,10 @@
     function configuration($routeProvider){
         $routeProvider
             .when ("/home",{
-                templateUrl: "views/home.view.html"
+                templateUrl: "home/home.view.html"
             })
             .when ("/search",{
-                templateUrl: "views/search.view.html"
+                templateUrl: "search/search.view.html"
             })
             .otherwise({
                 redirectTo: "/home"
