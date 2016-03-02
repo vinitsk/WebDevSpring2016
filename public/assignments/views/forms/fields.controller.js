@@ -4,7 +4,7 @@
 "user strict";
 (function () {
     angular
-        .module("FormMakerApp")
+        .module("FormBuilderApp")
         .controller("FieldsController",FieldsController)
 
     function FieldsController(){

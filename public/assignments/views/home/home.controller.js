@@ -4,7 +4,7 @@
 "use strict";
 (function () {
     angular
-        .module("FormMakerApp")
+        .module("FormBuilderApp")
         .controller("HomeController",HomeController)
 
     function HomeController(){

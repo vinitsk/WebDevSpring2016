@@ -4,7 +4,7 @@
 "user strict";
 (function () {
     angular
-        .module("FormMakerApp")
+        .module("FormBuilderApp")
         .controller("RegisterController",RegisterController)
 
     function RegisterController(){
