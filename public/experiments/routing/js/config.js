@@ -14,6 +14,10 @@
                 templateUrl: "search/search.view.html",
                 controller: "SearchController"
             })
+            .when ("/search/:title",{
+                templateUrl: "search/search.view.html",
+                controller: "SearchController"
+            })
             .when ("/detail/:imdbID",{
                 templateUrl: "detail/detail.view.html",
                 controller: "DetailController"
