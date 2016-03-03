@@ -42,12 +42,16 @@
 
         //Event Handlers Implementations
         function addForm() {
+            if (!$scope.form_title || $scope.form_title === "") {
+                return;
+            }
             var newUserForm = {
-                "title": $scope.form.form_title,
+                "title": $scope.form_title,
             }
             FormService.createFormForUser($rootScope.user._id, newUserForm, callback);
-
             function callback(response) {
+                $scope.form_title="";
+                $scope.form_id="";
                 //Updating the model with the newly added form.
                 //updateFormToScope(response);
                 //There is a totally wired thing happening, where while adding form, the new form gets
@@ -57,9 +61,18 @@
         };
         function updateForm() {
 
-            FormService.updateFormById();
-            function callback() {
-
+            if(!$scope.form_id || $scope.form_id ===""){
+                return;
+            }
+            var newUserForm = {
+                "title": $scope.form_title,
+                "userId":$rootScope.user._id
+            }
+            FormService.updateFormById($scope.form_id,newUserForm ,callback);
+            function callback(response) {
+                $scope.form_title="";
+                $scope.form_id="";
+                getAllFormsForUser();
             };
         };
         function deleteForm(formId) {
@@ -67,14 +80,11 @@
             function callback(response) {
                 //Updating the model.
                 updateFormToScope(response);
-
             };
         };
-        function selectForm() {
-            function callback(response) {
-                //Updating the model.
-                //updateFormToScope(response);
-            };
+        function selectForm(formId,formName) {
+            $scope.form_title=formName;
+            $scope.form_id=formId;
         };
     };
 })();

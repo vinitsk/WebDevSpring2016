@@ -21,7 +21,7 @@
                     <tbody>
                     <tr>
                         <form class="form-inline">
-                            <td><input ng-model="form.form_title"  type="text" class="form-control" placeholder="Form Name"/></td>
+                            <td><input ng-model="form_title"  type="text" class="form-control" placeholder="Form Name"/></td>
                             <td class="no-wrap">
                                 <a ng-click="addForm()" class="btn btn-warning btn-sm">
                                     <span class="glyphicon glyphicon-plus"></span>
@@ -38,7 +38,7 @@
                             <a ng-click="deleteForm(form._id)" class="btn btn-danger btn-sm">
                                 <span class="glyphicon glyphicon-trash"></span>
                             </a>
-                            <a ng-click="selectForm()" class="btn btn-primary btn-sm">
+                            <a ng-click="selectForm(form._id,form.title)" class="btn btn-primary btn-sm">
                                 <span class="glyphicon glyphicon-edit"></span>
                             </a>
                         </td>
