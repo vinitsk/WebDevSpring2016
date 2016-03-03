@@ -18,10 +18,10 @@
             var form_user = {
                 username: $scope.form.user_name,
                 password: $scope.form.user_password,
-                repeat_password:$scope.form.user_password_repeat,
-                email:$scope.form.user_email
+                repeat_password: $scope.form.user_password_repeat,
+                email: $scope.form.user_email
             };
-            
+
             UserService.createUser(form_user, userRegisterCallback)
 
             function userRegisterCallback(response) {

@@ -5,9 +5,9 @@
 (function () {
     angular
         .module("FormBuilderApp")
-        .controller("FieldsController",FieldsController)
+        .controller("FieldsController", FieldsController)
 
-    function FieldsController(){
+    function FieldsController() {
 
     };
 })();
