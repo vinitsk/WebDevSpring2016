@@ -14,6 +14,10 @@
             {"_id": "000", "title": "Contacts", "userId": 123},
             {"_id": "010", "title": "ToDo", "userId": 123},
             {"_id": "020", "title": "CDs", "userId": 234},
+            {"_id": "050", "title": "REGISTRATION", "userId": 123},
+            {"_id": "243", "title": "NEW USER", "userId": 123},
+            {"_id": "543", "title": "NEW PRODUCT", "userId": 123},
+            {"_id": "745", "title": "NEW CATALOG", "userId": 123},
         ];
 
         var api = {
@@ -60,10 +64,11 @@
         function deleteFormById(formId, callback) {
             for (let formIndex in current_forms) {
                 if (current_forms[formIndex]._id === formId) {
-                    current_forms.splice(formIndex);
+                    current_forms.splice(formIndex, 1);
+                    break;
                 }
-                callback(current_forms);
             }
+            callback(current_forms);
         };
 
         //Accepts parameter form id, new form object, and callback function

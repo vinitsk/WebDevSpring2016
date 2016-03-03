@@ -21,46 +21,24 @@
                     <tbody>
                     <tr>
                         <form class="form-inline">
-                            <td><input type="text" class="form-control" placeholder="Form Name"/></td>
+                            <td><input ng-model="form.form_title"  type="text" class="form-control" placeholder="Form Name"/></td>
                             <td class="no-wrap">
-                                <a href="#" class="btn btn-warning btn-sm">
+                                <a ng-click="addForm()" class="btn btn-warning btn-sm">
                                     <span class="glyphicon glyphicon-plus"></span>
                                 </a>
-                                <a href="#" class="btn btn-success btn-sm">
+                                <a ng-click="updateForm()" class="btn btn-success btn-sm">
                                     <span class="glyphicon glyphicon-ok"></span>
                                 </a>
                             </td>
                         </form>
                     </tr>
-                    <tr>
-                        <td><a href="fields.view.html">Registration Form</a></td>
+                    <tr ng-repeat="form in forms">
+                        <td><a href="#/fields">{{form.title}}</a></td>
                         <td class="no-wrap">
-                            <a href="#" class="btn btn-danger btn-sm">
+                            <a ng-click="deleteForm(form._id)" class="btn btn-danger btn-sm">
                                 <span class="glyphicon glyphicon-trash"></span>
                             </a>
-                            <a href="#" class="btn btn-primary btn-sm">
-                                <span class="glyphicon glyphicon-edit"></span>
-                            </a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td><a href="fields.view.html">Contact List</a></td>
-                        <td class="no-wrap">
-                            <a href="#" class="btn btn-danger btn-sm">
-                                <span class="glyphicon glyphicon-trash"></span>
-                            </a>
-                            <a href="#" class="btn btn-primary btn-sm">
-                                <span class="glyphicon glyphicon-edit"></span>
-                            </a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td><a href="fields.view.html">To Do List</a></td>
-                        <td class="no-wrap">
-                            <a href="#" class="btn btn-danger btn-sm">
-                                <span class="glyphicon glyphicon-trash"></span>
-                            </a>
-                            <a href="#" class="btn btn-primary btn-sm">
+                            <a ng-click="selectForm()" class="btn btn-primary btn-sm">
                                 <span class="glyphicon glyphicon-edit"></span>
                             </a>
                         </td>
