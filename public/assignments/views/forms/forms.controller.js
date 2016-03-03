@@ -9,6 +9,8 @@
 
     function FormsController(FormService, $scope, $rootScope, $location) {
 
+        $scope.$location = $location;
+
         //Setting the forms from the scope to populate UI
         getAllFormsForUser();
 
