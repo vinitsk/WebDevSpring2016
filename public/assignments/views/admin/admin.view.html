@@ -32,36 +32,10 @@
                         </td>
                     </form>
                 </tr>
-                <tr>
-                    <td>alice</td>
+                <tr ng-repeat="user in users">
+                    <td>{{user.username}}</td>
                     <td></td>
-                    <td>Student</td>
-                    <td class="no-wrap">
-                        <a href="#" class="btn btn-danger btn-sm">
-                            <span class="glyphicon glyphicon-trash"></span>
-                        </a>
-                        <a href="#" class="btn btn-primary btn-sm">
-                            <span class="glyphicon glyphicon-edit"></span>
-                        </a>
-                    </td>
-                </tr>
-                <tr>
-                    <td>bob</td>
-                    <td></td>
-                    <td>Faculty | Admin</td>
-                    <td class="no-wrap">
-                        <a href="#" class="btn btn-danger btn-sm">
-                            <span class="glyphicon glyphicon-trash"></span>
-                        </a>
-                        <a href="#" class="btn btn-primary btn-sm">
-                            <span class="glyphicon glyphicon-edit"></span>
-                        </a>
-                    </td>
-                </tr>
-                <tr>
-                    <td>charlie</td>
-                    <td></td>
-                    <td></td>
+                    <td>{{user.roles.join(' | ')}}</td>
                     <td class="no-wrap">
                         <a href="#" class="btn btn-danger btn-sm">
                             <span class="glyphicon glyphicon-trash"></span>
