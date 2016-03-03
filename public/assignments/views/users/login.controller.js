@@ -5,22 +5,24 @@
 (function () {
     angular
         .module("FormBuilderApp")
-        .controller("LoginController",LoginController)
+        .controller("LoginController", LoginController)
 
-    function LoginController(UserService,$scope,$location,$rootScope){
+    function LoginController(UserService, $scope, $location, $rootScope) {
 
         //Event Handlers Decelerations
-        $scope.login= Login;
+        $scope.login = Login;
 
         //Event Handlers Implementations
-        function Login(user_name, user_password){
-            UserService.findUserByCredentials(user_name,user_password,render);
+        function Login(user_name, user_password) {
+            UserService.findUserByCredentials(user_name, user_password, render);
 
-            function render(response){
-                //Storing the user in the Root Scope
-                $rootScope.user = response;
-                // Navigating to the Profile Page of this particular User
-                $location.url("/profile/");
+            function render(response) {
+                if (response != null) {
+                    //Storing the user in the Root Scope
+                    $rootScope.user = response;
+                    // Navigating to the Profile Page of this particular User
+                    $location.url("/profile/");
+                }
             }
         };
 
