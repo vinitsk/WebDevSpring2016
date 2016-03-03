@@ -95,8 +95,8 @@
             for (let user_index in current_users) {
                 if (current_users[user_index]._id === userId) {
                     current_users.splice(user_index);
-                    callback;
                 }
+                callback(current_users);
             }
         };
 
