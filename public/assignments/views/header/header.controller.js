@@ -18,6 +18,6 @@
         function logout() {
             delete $rootScope.user;
             $location.url("/home");
-        }
+        };
     };
 })();
