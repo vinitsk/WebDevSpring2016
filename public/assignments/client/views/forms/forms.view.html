@@ -30,7 +30,7 @@
                         </form>
                     </tr>
                     <tr ng-repeat="form in forms">
-                        <td><a href="#/fields">{{form.title}}</a></td>
+                        <td><a ng-click="openForm(form._id,form.title)">{{form.title}}</a></td>
                         <td class="no-wrap">
                             <a ng-click="deleteForm(form._id)" class="btn btn-danger btn-sm">
                                 <span class="glyphicon glyphicon-trash"></span>

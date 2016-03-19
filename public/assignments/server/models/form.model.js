@@ -16,7 +16,7 @@ module.exports = function () {
         getAllFormFields: getAllFormFields,
         getFormField: getFormField,
         deleteFormField: deleteFormField,
-        createNewFormField: creatNewFormField,
+        createNewFormField: createNewFormField,
         updateFormField: updateFormField
     };
     return api;
@@ -171,12 +171,13 @@ module.exports = function () {
         return deferred.promise;
     }
 
-    function createNewFormField(formId, fielId) {
+    function createNewFormField(formId, field) {
         var deferred = q.defer();
         var formFound = false;
         for (let form of data) {
             if (form._id == formId) {
                 formFound = true;
+                field._id = Math.floor(Math.random() * 900) + 100;
                 form.fields.push(field);
                 deferred.resolve(form.fields);
                 break;
@@ -188,7 +189,7 @@ module.exports = function () {
         return deferred.promise;
     }
 
-    function updateFormField(formId, fielId, newField) {
+    function updateFormField(formId, fieldId, newField) {
         var deferred = q.defer();
         var fieldFound = false;
         formLoop:for (let form of data) {

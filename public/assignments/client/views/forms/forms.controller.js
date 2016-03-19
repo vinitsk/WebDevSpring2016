@@ -20,6 +20,7 @@
         $scope.updateForm = updateForm;
         $scope.deleteForm = deleteForm;
         $scope.selectForm = selectForm;
+        $scope.openForm = openForm;
 
         //Data Population Functions
         function getAllFormsForUser() {
@@ -79,6 +80,7 @@
                 console.log(error);
             }
         }
+
         function updateForm() {
             if (!$scope.form_id || $scope.form_id === "") {
                 return;
@@ -102,6 +104,7 @@
                 console.log(error);
             }
         }
+
         function deleteForm(formId) {
             FormService
                 .deleteFormById(formId)
@@ -111,13 +114,24 @@
                     updateFormToScope(response.data);
                 }
             }
+
             function error_callback(error) {
                 console.log(error);
             }
         }
-        function selectForm(formId, fromTitle) {
+
+        function selectForm(formId, formTitle) {
             $scope.form_id = formId;
-            $scope.form_title = fromTitle;
+            $scope.form_title = formTitle;
+        }
+
+        function openForm(formId,formTitle) {
+            var form={
+                _id:formId,
+                title:formTitle
+            }
+            $rootScope.form =form;
+            $location.url("/"+formId+"/fields");
         }
     }
 })();
