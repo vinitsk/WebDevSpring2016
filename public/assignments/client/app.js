@@ -5,5 +5,5 @@
 "use strict";
 (function () {
     angular
-        .module("FormBuilderApp", ["ngRoute","ui.sortable"]);
+        .module("FormBuilderApp", ["ngRoute","ui.sortable","ui.bootstrap"]);
 })();

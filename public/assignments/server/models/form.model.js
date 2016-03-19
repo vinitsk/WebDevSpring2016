@@ -17,7 +17,8 @@ module.exports = function () {
         getFormField: getFormField,
         deleteFormField: deleteFormField,
         createNewFormField: createNewFormField,
-        updateFormField: updateFormField
+        updateFormField: updateFormField,
+        updateAllFormFields:updateAllFormFields
     };
     return api;
 
@@ -178,7 +179,13 @@ module.exports = function () {
             if (form._id == formId) {
                 formFound = true;
                 field._id = Math.floor(Math.random() * 900) + 100;
-                form.fields.push(field);
+                if (form.fields) {
+                    form.fields.push(field);
+                } else {
+                    var fields = [];
+                    fields.push(field)
+                    form.fields = fields;
+                }
                 deferred.resolve(form.fields);
                 break;
             }
@@ -197,9 +204,10 @@ module.exports = function () {
                 var fields = form.fields;
                 fieldLoop:for (let field of fields) {
                     if (field._id == fieldId) {
-                        field.label = newField.label
-                        field.type = newField.type
-                        field.placeholder = newField.placeholder
+                        field.label = newField.label;
+                        field.type = newField.type;
+                        field.placeholder = newField.placeholder;
+                        field.options = newField.options;
                         fieldFound = true;
                         deferred.resolve(fields);
                         break fieldLoop;
@@ -208,7 +216,23 @@ module.exports = function () {
                 break formLoop;
             }
         }
-        if (!formFound) {
+        if (!fieldFound) {
+            deferred.reject("No Match Found.");
+        }
+        return deferred.promise;
+    }
+
+    function updateAllFormFields(formId, newFields){
+        var deferred = q.defer();
+        var fieldFound = false;
+        formLoop:for (let form of data) {
+            if (form._id == formId) {
+                form.fields =newFields;
+                fieldFound = true;
+                break formLoop;
+            }
+        }
+        if (!fieldFound) {
             deferred.reject("No Match Found.");
         }
         return deferred.promise;

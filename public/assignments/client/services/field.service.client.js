@@ -14,7 +14,8 @@
             getFieldsForForm: getFieldsForForm,
             getFieldForForm: getFieldForForm,
             deleteFieldFromForm: deleteFieldFromForm,
-            updateField: updateField
+            updateField: updateField,
+            updateAllFields : updateAllFields
         };
         return api;
 
@@ -42,6 +43,11 @@
             var url = "/api/assignment/form/" + formId + "/field/" + fieldId;
             return $http.put(url, field);
 
+        }
+
+        function updateAllFields(formId, fields){
+            var url = "/api/assignment/form/" + formId + "/fields";
+            return $http.put(url, fields);
         }
     }
 })();

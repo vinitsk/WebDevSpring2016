@@ -11,6 +11,7 @@ module.exports = function (app, formModel) {
     app.delete("/api/assignment/form/:formId/field/:fieldId", deleteFormField);
     app.post("/api/assignment/form/:formId/field", createNewFormField);
     app.put("/api/assignment/form/:formId/field/:fieldId", updateFormField);
+    app.put("/api/assignment/form/:formId/fields", updateAllFormFields);
 
 
     function getAllFormFields(req, res) {
@@ -83,6 +84,22 @@ module.exports = function (app, formModel) {
         function error_callback(error) {
             res.status(400).send(error);
         }
+    }
+
+    function updateAllFormFields(req, res){
+        console.log("updateAllFormFields");
+        var fields = req.body;
+        formModel
+            .updateAllFormFields(req.params.formId, fields)
+            .then(success_callback, error_callback);
+        function success_callback(response) {
+            res.json(response);
+        }
+
+        function error_callback(error) {
+            res.status(400).send(error);
+        }
+
     }
 
 }
