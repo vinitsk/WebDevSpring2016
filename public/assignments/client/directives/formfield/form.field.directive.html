@@ -1,0 +1,73 @@
+<form>
+    <div class="col-lg-9 col-md-9 col-sm-6 col-xs-6 " ng-switch="field.type">
+        <div class="form-group" ng-switch-when="TEXT">
+            <label for="{{field._id}}">{{field.label}}</label>
+            <input type="text" class="form-control" id="{{field._id}}"
+                   placeholder="{{field.placeholder}}">
+        </div>
+        <div class="form-group" ng-switch-when="TEXTAREA">
+            <label for="{{field._id}}">{{field.label}}</label>
+            <textarea class="form-control" id="{{field._id}}"
+                      placeholder="{{field.placeholder}}">
+            </textarea>
+        </div>
+        <div class="form-group" ng-switch-when="EMAIL">
+            <label for="{{field._id}}">{{field.label}}</label>
+            <input type="email" class="form-control" id="{{field._id}}"
+                   placeholder="{{field.placeholder}}">
+            </input>
+        </div>
+        <div class="form-group" ng-switch-when="OPTIONS">
+            <label for="{{field._id}}">{{field.label}}</label>
+            <select class="form-control" ng-model="select"
+                    ng-options="option as option.label for option in field.options">
+            </select>
+        </div>
+        <div class="form-group" ng-switch-when="DATE">
+            <label for="{{field._id}}">{{field.label}}</label>
+            <input type="date" class="form-control" id="{{field._id}}"
+                   placeholder="{{field.placeholde}}">
+            </input>
+        </div>
+        <div ng-switch-when="RADIOS">
+            <label for="{{field._id}}">{{field.label}}</label>
+            <div ng-repeat="option in field.options" class="radio">
+                <label>
+                    <input type="radio" id="{{field._id}}"
+                           name="{{'radio'+field._id}}" value="{{option.value}}">
+                    </input>
+                    {{option.label}}
+                </label>
+            </div>
+        </div>
+        <div ng-switch-when="CHECKBOXES">
+            <label for="{{field._id}}">{{field.label}}</label>
+            <div ng-repeat="option in field.options" class="checkbox">
+                <label>
+                    <input type="checkbox" id="{{field._id}}"
+                           name="{{'checkbox'+field._id}}" value="{{option.value}}">
+                    </input>
+                    {{option.label}}
+                </label>
+            </div>
+        </div>
+        <div class="form-group" ng-switch-default>
+        </div>
+    </div>
+    <div class="col-lg-3 col-md-3 col-sm-6 col-xs-6  top-margin-25">
+        <div class=" no-wrap">
+            <a ng-click="openEditModel(field)" class="btn btn-primary btn-sm">
+                <span class="glyphicon glyphicon-edit"></span>
+            </a>
+            <a ng-click="duplicateField(field)" class="btn btn-success btn-sm">
+                <span class="glyphicon glyphicon-plus"></span>
+            </a>
+            <a ng-click="removeField(field._id)" class="btn btn-danger btn-sm">
+                <span class="glyphicon glyphicon-trash"></span>
+            </a>
+            <a href="javascript:void(0);" class="btn btn-warning btn-sm field-move">
+                <span class="glyphicon glyphicon-move"></span>
+            </a>
+        </div>
+    </div>
+</form>

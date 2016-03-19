@@ -1,0 +1,111 @@
+<!--<div class="modal-header">-->
+<!--<h3 class="modal-title">I'm a modal!</h3>-->
+<!--</div>-->
+<!--<div class="modal-body">-->
+<!--<ul>-->
+<!--<li ng-repeat="field in fields">-->
+<!--<a href="#" ng-click="$event.preventDefault(); selected.field = field">{{ field }}</a>-->
+<!--</li>-->
+<!--</ul>-->
+<!--Selected: <b>{{ selected.field }}</b>-->
+<!--</div>-->
+<!--<div class="modal-footer">-->
+<!--<button class="btn btn-primary" type="button" ng-click="ok()">OK</button>-->
+<!--<button class="btn btn-warning" type="button" ng-click="cancel()">Cancel</button>-->
+<!--</div>-->
+<div>
+    <div class="modal-header">
+        <h3 class="modal-title">Edit {{field.type}}</h3>
+    </div>
+    <div class="modal-body">
+        <form>
+            <div ng-switch="field.type">
+                <div ng-switch-when="TEXT">
+                    <div class="form-group">
+                        <label for="{{field._id+'-label_'+field.label}}">Label</label>
+                        <input ng-model="field.label" type="text" class="form-control" id="{{field._id+'-label_'+field.label}}"
+                               placeholder="{{field.label}}">
+                    </div>
+                    <div class="form-group">
+                        <label for="{{field._id+'_placeholder_'+field.placeholder}}">Placeholder</label>
+                        <input ng-model="field.placeholder" type="text" class="form-control" id="{{field._id+'_placeholder_'+field.placeholder}}"
+                               placeholder="{{field.placeholder}}">
+                    </div>
+                </div>
+                <div ng-switch-when="TEXTAREA">
+                    <div class="form-group">
+                        <label for="{{field._id+'-label_'+field.label}}">Label</label>
+                        <input ng-model="field.label" type="text" class="form-control" id="{{field._id+'-label_'+field.label}}"
+                               placeholder="{{field.label}}">
+                    </div>
+                    <div class="form-group">
+                        <label for="{{field._id+'_placeholder_'+field.placeholder}}">Placeholder</label>
+                        <input ng-model="field.placeholder" type="text" class="form-control" id="{{field._id+'_placeholder_'+field.placeholder}}"
+                               placeholder="{{field.placeholder}}">
+                    </div>
+                </div>
+                <div ng-switch-when="DATE">
+                    <div class="form-group">
+                        <label for="{{field._id+'-label_'+field.label}}">Label</label>
+                        <input ng-model="field.label" type="text" class="form-control" id="{{field._id+'-label_'+field.label}}"
+                               placeholder="{{field.label}}">
+                    </div>
+                </div>
+                <div ng-switch-when="EMAIL">
+                    <div class="form-group">
+                        <label for="{{field._id+'-label_'+field.label}}">Label</label>
+                        <input ng-model="field.label" type="text" class="form-control" id="{{field._id+'-label_'+field.label}}"
+                               placeholder="{{field.label}}">
+                    </div>
+                    <div class="form-group">
+                        <label for="{{field._id+'_placeholder_'+field.placeholder}}">Placeholder</label>
+                        <input ng-model="field.placeholder" type="text" class="form-control" id="{{field._id+'_placeholder_'+field.placeholder}}"
+                               placeholder="{{field.placeholder}}">
+                    </div>
+                </div>
+                <div ng-switch-when="OPTIONS">
+                    <div class="form-group">
+                        <label for="{{field._id+'-label_'+field.label}}">Label</label>
+                        <input ng-model="field.label" type="text" class="form-control" id="{{field._id+'-label_'+field.label}}"
+                               placeholder="{{field.label}}">
+                    </div>
+                    <div class="form-group">
+                        <label for="{{field._id+'_options'}}">Options</label>
+                        <textarea ng-model="$parent.optionsValue" type="text" class="form-control" id="{{field._id+'_options'}}">
+                        </textarea>
+                    </div>
+                </div>
+                <div ng-switch-when="RADIOS">
+                    <div class="form-group">
+                        <label for="{{field._id+'-label_'+field.label}}">Label</label>
+                        <input ng-model="field.label" type="text" class="form-control" id="{{field._id+'-label_'+field.label}}"
+                               placeholder="{{field.label}}">
+                    </div>
+                    <div class="form-group">
+                        <label for="{{field._id+'_options'}}">Options</label>
+                        <textarea ng-model="$parent.optionsValue" type="text" class="form-control" id="{{field._id+'_options'}}">
+                        </textarea>
+                    </div>
+                </div>
+                <div ng-switch-when="CHECKBOXES">
+                    <div class="form-group">
+                        <label for="{{field._id+'-label_'+field.label}}">Label</label>
+                        <input ng-model="field.label" type="text" class="form-control" id="{{field._id+'-label_'+field.label}}"
+                               placeholder="{{field.label}}">
+                    </div>
+                    <div class="form-group">
+                        <label for="{{field._id+'_options'}}">Options</label>
+                        <textarea ng-model="$parent.optionsValue" type="text" class="form-control" id="{{field._id+'_options'}}">
+                        </textarea>
+                    </div>
+                </div>
+                <div class="form-group" ng-switch-default>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-primary" type="button" ng-click="ok()">Ok</button>
+        <button class="btn btn-warning" type="button" ng-click="cancel()">Cancel</button>
+    </div>
+</div>
