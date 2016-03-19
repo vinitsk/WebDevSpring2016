@@ -21,51 +21,51 @@ module.exports = function () {
     return api;
 
     function findUserById(userID) {
-        var defered = q.defer();
+        var deferred = q.defer();
         var userFound = false;
         for (let user of data) {
             if (user._id == userID) {
-                defered.resolve(user);
+                deferred.resolve(user);
                 userFound = true;
                 break;
             }
         }
         if (!userFound) {
-            defered.reject("No Match Found.");
+            deferred.reject("No Match Found.");
         }
-        return defered.promise;
+        return deferred.promise;
     }
 
     function findUserByUsername(username) {
-        var defered = q.defer();
+        var deferred = q.defer();
         var userFound = false;
         for (let user of data) {
             if (user.username == username) {
-                defered.resolve(user);
+                deferred.resolve(user);
                 userFound = true;
                 break;
             }
         }
         if (!userFound) {
-            defered.reject("No Match Found.");
+            deferred.reject("No Match Found.");
         }
-        return defered.promise;
+        return deferred.promise;
     }
 
     function findUserByCredentials(credentials) {
-        var defered = q.defer();
+        var deferred = q.defer();
         var userFound = false;
         for (let user of data) {
             if (user.username == credentials.username && user.password == credentials.password) {
-                defered.resolve(user);
+                deferred.resolve(user);
                 userFound = true;
                 break;
             }
         }
         if (!userFound) {
-            defered.reject("No Match Found.");
+            deferred.reject("No Match Found.");
         }
-        return defered.promise;
+        return deferred.promise;
     };
 
     function findAllUsers() {
@@ -78,48 +78,48 @@ module.exports = function () {
     }
 
     function createUser(user) {
-        var defered = q.defer();
+        var deferred = q.defer();
         user._id = Math.floor(Math.random() * 900) + 100;
         data.push(user);
-        defered.resolve(user);
-        return defered.promise;
+        deferred.resolve(user);
+        return deferred.promise;
     }
 
     function deleteUserById() {
-        var defered = q.defer();
+        var deferred = q.defer();
         var userFound = false;
-        for (let cuurentUser of data) {
-            if (cuurentUser._id == userID) {
-                data.splice(user_index, 1);
-                defered.resolve(data);
+        for (let currentUserIndex in data) {
+            if (data[currentUserIndex]._id == userID) {
+                data.splice(currentUserIndex, 1);
+                deferred.resolve(data);
                 userFound = true;
                 break;
             }
         }
         if (!userFound) {
-            defered.reject("No Match Found.");
+            deferred.reject("No Match Found.");
         }
-        return defered.promise;
+        return deferred.promise;
     }
 
     function updateUser(userID, user) {
-        var defered = q.defer();
+        var deferred = q.defer();
         var userFound = false;
-        for (let cuurentUser of data) {
-            if (cuurentUser._id == userID) {
-                cuurentUser.email = user.email;
-                cuurentUser.firstName = user.firstName;
-                cuurentUser.lastName = user.lastName;
-                cuurentUser.passowrd = user.passowrd;
-                defered.resolve(cuurentUser);
+        for (let currentUser of data) {
+            if (currentUser._id == userID) {
+                currentUser.email = user.email;
+                currentUser.firstName = user.firstName;
+                currentUser.lastName = user.lastName;
+                currentUser.passowrd = user.passowrd;
+                deferred.resolve(currentUser);
                 userFound = true;
                 break;
             }
         }
         if (!userFound) {
-            defered.reject("No Match Found.");
+            deferred.reject("No Match Found.");
         }
-        return defered.promise;
+        return deferred.promise;
     }
 };
 

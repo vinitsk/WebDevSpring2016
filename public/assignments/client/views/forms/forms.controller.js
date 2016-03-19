@@ -5,11 +5,12 @@
 (function () {
     angular
         .module("FormBuilderApp")
-        .controller("FormsController", FormsController)
+        .controller("FormsController", FormsController);
 
     function FormsController(FormService, $scope, $rootScope, $location) {
 
         $scope.$location = $location;
+        $scope.form_id = "";
 
         //Setting the forms from the scope to populate UI
         getAllFormsForUser();
@@ -20,17 +21,25 @@
         $scope.deleteForm = deleteForm;
         $scope.selectForm = selectForm;
 
-
         //Data Population Functions
         function getAllFormsForUser() {
-            var forms = [];
-            if ($rootScope.user) {
-                FormService.findAllFormsForUser($rootScope.user._id, callback);
+            if (!$rootScope.user) {
+                return;
             }
-            function callback(response) {
-                $scope.forms = response;
-            };
-        };
+            FormService
+                .findAllFormsForUser($rootScope.user._id)
+                .then(success_callback, error_callback);
+            function success_callback(response) {
+                if (response != null) {
+                    console.log(response);
+                    $scope.forms = response.data;
+                }
+            }
+
+            function error_callback(error) {
+                console.log(error);
+            }
+        }
 
         function updateFormToScope(response) {
             if (Array.isArray(response)) {
@@ -40,53 +49,75 @@
                 scopeForms.push(response);
                 $scope.forms = scopeForms;
             }
-        };
+        }
 
         //Event Handlers Implementations
-        function addForm() {
-            if (!$scope.form_title || $scope.form_title === "") {
+        function addForm(form_title) {
+            if (!form_title || form_title === "") {
                 return;
             }
-            var newUserForm = {
-                "title": $scope.form_title,
-            }
-            FormService.createFormForUser($rootScope.user._id, newUserForm, callback);
-            function callback(response) {
-                $scope.form_title="";
-                $scope.form_id="";
-                //Updating the model with the newly added form.
-                //updateFormToScope(response);
-                //There is a totally wired thing happening, where while adding form, the new form gets
-                //added to the scope automatically.
-                getAllFormsForUser();
+            var form = {
+                title: form_title
             };
-        };
-        function updateForm() {
+            FormService
+                .createFormForUser($rootScope.user._id, form)
+                .then(success_callback, error_callback);
+            function success_callback(response) {
+                if (response != null) {
+                    console.log(response);
+                    $scope.forms = response.data;
+                    $scope.form_title = "";
+                    //Updating the model with the newly added form.
+                    //updateFormToScope(response);
+                    //There is a totally wired thing happening, where while adding form, the new form gets
+                    //added to the scope automatically.
+                    getAllFormsForUser();
+                }
+            }
 
-            if(!$scope.form_id || $scope.form_id ===""){
+            function error_callback(error) {
+                console.log(error);
+            }
+        }
+        function updateForm() {
+            if (!$scope.form_id || $scope.form_id === "") {
                 return;
             }
             var newUserForm = {
                 "title": $scope.form_title,
-                "userId":$rootScope.user._id
+                "userId": $rootScope.user._id
+            };
+            FormService
+                .updateFormById($scope.form_id, newUserForm)
+                .then(success_callback, error_callback);
+            function success_callback(response) {
+                if (response != null) {
+                    $scope.form_title = "";
+                    $scope.form_id = "";
+                    getAllFormsForUser();
+                }
             }
-            FormService.updateFormById($scope.form_id,newUserForm ,callback);
-            function callback(response) {
-                $scope.form_title="";
-                $scope.form_id="";
-                getAllFormsForUser();
-            };
-        };
+
+            function error_callback(error) {
+                console.log(error);
+            }
+        }
         function deleteForm(formId) {
-            FormService.deleteFormById(formId, callback);
-            function callback(response) {
-                //Updating the model.
-                updateFormToScope(response);
-            };
-        };
-        function selectForm(formId,formName) {
-            $scope.form_title=formName;
-            $scope.form_id=formId;
-        };
-    };
+            FormService
+                .deleteFormById(formId)
+                .then(success_callback, error_callback);
+            function success_callback(response) {
+                if (response != null) {
+                    updateFormToScope(response.data);
+                }
+            }
+            function error_callback(error) {
+                console.log(error);
+            }
+        }
+        function selectForm(formId, fromTitle) {
+            $scope.form_id = formId;
+            $scope.form_title = fromTitle;
+        }
+    }
 })();

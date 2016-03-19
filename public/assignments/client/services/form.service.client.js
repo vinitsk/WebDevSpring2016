@@ -8,7 +8,7 @@
         .module("FormBuilderApp")
         .factory("FormService", FormService);
 
-    function FormService() {
+    function FormService($http) {
 
         var current_forms = [
             {"_id": "000", "title": "Contacts", "userId": 123},
@@ -34,57 +34,35 @@
         //Adds property called userId equal to user id parameter
         //Adds new form to local array of forms
         //Calls back with new form
-        function createFormForUser(userId, form, callback) {
-            var newForm = {
-                "_id": Math.floor(Math.random() * 900) + 100,
-                "title": form.title,
-                "userId": userId
-            }
-            current_forms.push(newForm);
-            callback(newForm);
+        function createFormForUser(userId, form) {
+            var url = "/api/assignment/user/" + userId + "/form";
+            return $http.post(url, form);
         };
 
         //Accepts parameter user id, and callback function
         //Iterates over the array of current forms looking for forms whose user id is parameter user id
         //Calls back with found forms for user id parameter, empty array otherwise
-        function findAllFormsForUser(userId, callback) {
-            var matcheForms = [];
-            for (let form of current_forms) {
-                if (form.userId === userId) {
-                    matcheForms.push(form);
-                }
-                callback(matcheForms);
-            }
+        function findAllFormsForUser(userId) {
+            var url = "/api/assignment/user/" + userId + "/form";
+            return $http.get(url);
         };
 
         //Accepts parameter form id and callback function
         //Iterates over array of forms looking for form whose id is form id parameter
         //If found, removes form from current array of forms
         //Calls back with remaining array of forms
-        function deleteFormById(formId, callback) {
-            for (let formIndex in current_forms) {
-                if (current_forms[formIndex]._id === formId) {
-                    current_forms.splice(formIndex, 1);
-                    break;
-                }
-            }
-            callback(current_forms);
+        function deleteFormById(formId) {
+            var url = "/api/assignment/form/"+formId;
+            return $http.delete(url);
         };
 
         //Accepts parameter form id, new form object, and callback function
         //Iterates over array of forms looking for form whose id is form id parameter
         //If found, updates form object with new form values
         //Calls back with update form
-        function updateFormById(formId, newForm, callback) {
-            for (let form of current_forms) {
-                if (form._id === formId) {
-                    form.title = newForm.title;
-                    form.userId = newForm.userId;
-                    callback(form);
-                } else {
-                    callback(null);
-                }
-            }
+        function updateFormById(formId, newForm) {
+            var url = "/api/assignment/form/" + formId;
+            return $http.post(url, newForm);
         };
 
     }
