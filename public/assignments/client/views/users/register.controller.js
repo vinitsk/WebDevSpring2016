@@ -13,26 +13,26 @@
         $scope.register = Register;
 
         //Event Handlers Implementations
-        function Register() {
+        function Register(user) {
 
-            var form_user = {
-                username: $scope.form.user_name,
-                password: $scope.form.user_password,
-                repeat_password: $scope.form.user_password_repeat,
-                email: $scope.form.user_email
-            };
-
-            UserService.createUser(form_user, userRegisterCallback)
-
-            function userRegisterCallback(response) {
+            UserService
+                .createUser(user)
+                .then(success_callback, error_callback);
+            function success_callback(response) {
                 if (response != null) {
                     //Storing the user in the Root Scope
-                    $rootScope.user = response;
-                    // Navigating to the Profile Page of this particular User
-                    $location.url("/profile/");
+                    console.log(response);
+                    $rootScope.user = response.data;
+                    //Navigating to the Profile Page of this particular User
+                    $location.url("/profile");
                 }
-            };
-        };
+            }
 
-    };
+            function error_callback(error) {
+                console.log(error);
+            }
+
+        }
+
+    }
 })();

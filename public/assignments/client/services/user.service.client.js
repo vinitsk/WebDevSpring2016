@@ -8,7 +8,7 @@
         .module("FormBuilderApp")
         .factory("UserService", UserService);
 
-    function UserService() {
+    function UserService($http) {
 
         var current_users = [
             {
@@ -46,16 +46,12 @@
         //Iterates over the array of current users looking for user object
         // whose username and password match the parameters
         //Calls back with user found or null otherwise
-        function findUserByCredentials(username, password, callback) {
-            for (let user of current_users) {
-                if (user.username === username && user.password === password) {
-                    callback(user);
-                } else {
-                    callback(null);
-                }
-            }
-
-        };
+        function findUserByCredentials(credentials) {
+            var url = "/api/assignment/user";
+            url+="?username="+credentials.username;
+            url+="&password="+credentials.password;
+            return $http.get(url);
+        }
 
         //findAllUsers(callback)
         //Accepts parameter callback function
@@ -68,21 +64,10 @@
         //Adds property called _id with unique value to the user object parameter.
         //Adds the new user to local array of users
         //Calls back with new user
-        function createUser(form_user, callback) {
-            if (form_user.password === form_user.repeat_password) {
-                var new_user = {
-                    _id: Math.floor(Math.random() * 900) + 100,
-                    firstName: "",
-                    lastName: "",
-                    username: form_user.username,
-                    password: form_user.password,
-                    role: "",
-                    email: form_user.email,
-                };
-                current_users.push(new_user);
-                callback(new_user);
-            } else {
-                callback(null);
+        function createUser(user) {
+            if (user.password == user.repeatPassword) {
+                var url = "/api/assignment/user";
+                return $http.post(url, user);
             }
         };
 
@@ -106,22 +91,10 @@
         // object whose user id is equal to parameter user id
         //If found, updates user with new user properties
         //Calls back with updated user
-        function updateUser(userId, newUser, callback) {
-            for (let user of current_users) {
-                if (user._id === userId) {
-                    user.firstName = newUser.firstName;
-                    user.lastName = newUser.lastName;
-                    user.username = newUser.username;
-                    user.password = newUser.password;
-                    user.roles = newUser.roles;
-                    user.email = newUser.email;
-                    callback(user);
-                } else {
-                    callback(null);
-                }
-            }
+        function updateUser(userId, newUser) {
+            var url = "/api/assignment/user/";
+            url+=userId;
+            return $http.put(url, newUser);
         }
-
-
     };
 })();

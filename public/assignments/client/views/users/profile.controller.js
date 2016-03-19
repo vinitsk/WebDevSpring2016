@@ -14,25 +14,21 @@
         $scope.update = Update;
 
         //Event Handlers Implementations
-        function Update() {
-
-            var form_user = {
-                username: $scope.form.user_name,
-                password: $scope.form.user_password,
-                firstname: $scope.form.user_fname,
-                lastname: $scope.form.user_lname,
-                email: $scope.form.user_email
-            };
-
-            UserService.updateUser($rootScope.user._id, form_user, callback);
-            function callback(response) {
+        function Update(user) {
+            UserService.updateUser($rootScope.user._id, user)
+                .then(success_callback, error_callback);
+            function success_callback(response) {
                 if (response != null) {
                     //Storing the user in the Root Scope
-                    $rootScope.user = response;
-                    // Navigating to the Profile Page of this particular User
-                    $location.url("/profile/");
+                    console.log(response);
+                    $rootScope.user = response.data;
+                    //Navigating to the Profile Page of this particular User
+                    $location.url("/profile");
                 }
-            };
+            }
+            function error_callback(error) {
+                console.log(error);
+            }
         }
 
 

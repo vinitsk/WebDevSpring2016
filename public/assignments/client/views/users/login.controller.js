@@ -13,16 +13,23 @@
         $scope.login = Login;
 
         //Event Handlers Implementations
-        function Login(user_name, user_password) {
-            UserService.findUserByCredentials(user_name, user_password, render);
+        function Login(credentials) {
+            UserService
+                .findUserByCredentials(credentials)
+                .then(success_callback, error_callback);
 
-            function render(response) {
+            function success_callback(response) {
                 if (response != null) {
                     //Storing the user in the Root Scope
-                    $rootScope.user = response;
-                    // Navigating to the Profile Page of this particular User
-                    $location.url("/profile/");
+                    console.log(response);
+                    $rootScope.user = response.data;
+                    //Navigating to the Profile Page of this particular User
+                    $location.url("/profile");
                 }
+            }
+
+            function error_callback(error) {
+                console.log(error);
             }
         };
 
