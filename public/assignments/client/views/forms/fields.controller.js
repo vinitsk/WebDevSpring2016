@@ -12,8 +12,9 @@
         //Event Handlers Decelerations
         $scope.removeField = removeField;
         $scope.addNewField = addNewField;
-        $scope.udpateField = updateField;
+        $scope.updateField = updateField;
         $scope.duplicateField = duplicateField;
+        //$scope.openEditModel = openEditModal;
 
         function init() {
             getFormFields();
@@ -35,13 +36,6 @@
             update: updateSortOrder
         };
 
-        $scope.animationsEnabled = true;
-
-        $scope.openEditModel = openEditModal;
-
-        $scope.toggleAnimation = function () {
-            $scope.animationsEnabled = !$scope.animationsEnabled;
-        };
 
         function updateSortOrder() {
             if (!$scope.fields) {
@@ -62,30 +56,6 @@
             }
         }
 
-        /*Function For Modal*/
-        function openEditModal(field) {
-            console.log("Opening Model");
-            console.log(field);
-            $scope.field = field;
-            var modalInstance = $uibModal.open({
-                animation: $scope.animationsEnabled,
-                templateUrl: 'modals/formfeild/field.edit.modal.html',
-                controller: 'FieldModalController',
-                //size: "lg",
-                resolve: {
-                    field: function () {
-                        return $scope.field;
-                    }
-                    //scope: $scope
-                }
-            });
-            modalInstance.result.then(function (field) {
-                console.log(field);
-                updateField(field);
-            }, function () {
-                console.log('Modal dismissed at: ' + new Date());
-            });
-        };
 
         function duplicateField(field) {
             if (!field) {
