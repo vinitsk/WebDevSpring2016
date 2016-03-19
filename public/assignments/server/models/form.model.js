@@ -58,7 +58,7 @@ module.exports = function () {
             }
         }
         if (!formFound) {
-            deferred.reject("No Match Found.");
+            deferred.resolve(userForms);
         } else {
             deferred.resolve(userForms);
         }

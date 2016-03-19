@@ -7,47 +7,44 @@
         .module("FormBuilderApp")
         .controller("FieldsController", FieldsController);
 
-    function FieldsController(FieldService, $routeParams, $scope, $rootScope, $uibModal, $location) {
+    function FieldsController(FieldService, $routeParams, $rootScope, $location) {
+
+        var FieldsController = this;
 
         //Event Handlers Decelerations
-        $scope.removeField = removeField;
-        $scope.addNewField = addNewField;
-        $scope.updateField = updateField;
-        $scope.duplicateField = duplicateField;
-        //$scope.openEditModel = openEditModal;
+        FieldsController.removeField = removeField;
+        FieldsController.addNewField = addNewField;
+        FieldsController.updateField = updateField;
+        FieldsController.duplicateField = duplicateField;
 
         function init() {
             getFormFields();
-        }
+            FieldsController.fieldType = [
+                {"label": "Single Line Text Field", "value": "TEXT"},
+                {"label": "Multi Line Text Field", "value": "TEXTAREA"},
+                {"label": "Date Field", "value": "DATE"},
+                {"label": "Dropdown Field", "value": "OPTIONS"},
+                {"label": "Radio Buttons Field", "value": "RADIOS"},
+                {"label": "Checkboxes Field", "value": "CHECKBOXES"}
+            ];
 
-        init();
-
-        $scope.fieldType = [
-            {"label": "Single Line Text Field", "value": "TEXT"},
-            {"label": "Multi Line Text Field", "value": "TEXTAREA"},
-            {"label": "Date Field", "value": "DATE"},
-            {"label": "Dropdown Field", "value": "OPTIONS"},
-            {"label": "Radio Buttons Field", "value": "RADIOS"},
-            {"label": "Checkboxes Field", "value": "CHECKBOXES"}
-        ];
-
-        $scope.sortableOptions = {
-            handle: ".field-move",
-            update: updateSortOrder
-        };
-
+            FieldsController.sortableOptions = {
+                handle: ".field-move",
+                update: updateSortOrder
+            };
+        }init();
 
         function updateSortOrder() {
-            if (!$scope.fields) {
+            if (!FieldsController.fields) {
                 return
             }
             FieldService
-                .updateAllFields($routeParams.formId, $scope.fields)
+                .updateAllFields($routeParams.formId, FieldsController.fields)
                 .then(success_callback, error_callback);
             function success_callback(response) {
                 if (response != null) {
                     console.log(response);
-                    $scope.fields = response.data;
+                    FieldsController.fields = response.data;
                 }
             }
 
@@ -67,7 +64,7 @@
             function success_callback(response) {
                 if (response != null) {
                     console.log(response);
-                    $scope.fields = response.data;
+                    FieldsController.fields = response.data;
                 }
             }
 
@@ -86,7 +83,7 @@
             function success_callback(response) {
                 if (response != null) {
                     console.log(response);
-                    $scope.fields = response.data;
+                    FieldsController.fields = response.data;
                 }
             }
 
@@ -106,7 +103,7 @@
             function success_callback(response) {
                 if (response != null) {
                     console.log(response);
-                    $scope.fields = response.data;
+                    FieldsController.fields = response.data;
                 }
             }
 
@@ -126,7 +123,7 @@
             function success_callback(response) {
                 if (response != null) {
                     console.log(response);
-                    $scope.fields = response.data;
+                    FieldsController.fields = response.data;
                 }
             }
 
@@ -179,7 +176,7 @@
             function success_callback(response) {
                 if (response != null) {
                     console.log(response);
-                    $scope.fields = response.data;
+                    FieldsController.fields = response.data;
                 }
             }
 

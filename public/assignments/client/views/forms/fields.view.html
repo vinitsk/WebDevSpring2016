@@ -6,8 +6,8 @@
         <div class="row" ng-include="'views/forms/forms.tab.view.html'">
         </div>
         <div class="row no-left-margin top-margin-30">&nbsp;</div>
-        <div  ui-sortable="sortableOptions" ng-model="fields">
-            <div class="row no-left-margin" ng-repeat="field in fields">
+        <div  ui-sortable="model.sortableOptions" ng-model="model.fields">
+            <div class="row no-left-margin" ng-repeat="field in model.fields">
                 <form-field field="field"></form-field>
             </div>
         </div>
@@ -17,14 +17,14 @@
                 <div class="col-lg-9 col-md-9 col-sm-6 col-xs-6">
                     <div class="form-group">
                         <label for="form-new-field">Add New Field</label>
-                        <select id="form-new-field" ng-model="newfieldSelector" class="form-control"
-                                ng-options="ft as ft.label for ft in fieldType">
+                        <select id="form-new-field" ng-model="model.newfieldSelector" class="form-control"
+                                ng-options="ft as ft.label for ft in model.fieldType">
                         </select>
                     </div>
                 </div>
                 <div class="col-lg-3 col-md-3 col-sm-6 col-xs-6 top-margin-25">
                     <div>
-                        <a ng-click="addNewField(newfieldSelector)" class="btn btn-success btn-sm">
+                        <a ng-click="model.addNewField(model.newfieldSelector)" class="btn btn-success btn-sm">
                             <span class="glyphicon glyphicon-plus"></span>
                         </a>
                     </div>

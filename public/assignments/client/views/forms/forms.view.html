@@ -17,25 +17,27 @@
                     <tbody>
                     <tr>
                         <form class="form-inline">
-                            <td><input ng-model="form_title" type="text" class="form-control" placeholder="Form Name"/>
+                            <td><input ng-model="model.form_title" type="text" class="form-control"
+                                       placeholder="Form Name"/>
                             </td>
                             <td class="no-wrap">
-                                <a ng-click="addForm(form_title)" class="btn btn-warning btn-sm">
+                                <a ng-click="model.addForm(model.form_title)" class="btn btn-warning btn-sm">
                                     <span class="glyphicon glyphicon-plus"></span>
                                 </a>
-                                <a ng-click="updateForm()" class="btn btn-success btn-sm">
+                                <a ng-click="model.updateForm()" class="btn btn-success btn-sm">
                                     <span class="glyphicon glyphicon-ok"></span>
                                 </a>
                             </td>
                         </form>
                     </tr>
-                    <tr ng-repeat="form in forms">
-                        <td><a ng-click="openForm(form._id,form.title)">{{form.title}}</a></td>
+                    <tr ng-repeat="form in model.forms">
+                        <td><a ng-click="model.openForm(form._id, form.title)">{{form.title}}</a></td>
                         <td class="no-wrap">
-                            <a ng-click="deleteForm(form._id)" class="btn btn-danger btn-sm">
+                            <a ng-click="model.deleteForm(form._id)" class="btn btn-danger btn-sm">
                                 <span class="glyphicon glyphicon-trash"></span>
                             </a>
-                            <a ng-click="selectForm(form._id,form.title)" class="btn btn-primary btn-sm">
+                            <a ng-click="model.selectForm(form._id,form.title)"
+                               class="btn btn-primary btn-sm">
                                 <span class="glyphicon glyphicon-edit"></span>
                             </a>
                         </td>

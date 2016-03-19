@@ -7,20 +7,25 @@
         .module("FormBuilderApp")
         .controller("FormsController", FormsController);
 
-    function FormsController(FormService, $scope, $rootScope, $location) {
+    function FormsController(FormService, $rootScope, $location) {
 
-        $scope.$location = $location;
-        $scope.form_id = "";
-
-        //Setting the forms from the scope to populate UI
-        getAllFormsForUser();
+        var FormsController = this;
+        function init() {
+            if (!$rootScope.user) {
+                $location.url("/");
+            }
+            FormsController.form_id = "";
+            //Setting the forms from the scope to populate UI
+            getAllFormsForUser();
+        }
+        init();
 
         //Event Handlers Decelerations
-        $scope.addForm = addForm;
-        $scope.updateForm = updateForm;
-        $scope.deleteForm = deleteForm;
-        $scope.selectForm = selectForm;
-        $scope.openForm = openForm;
+        FormsController.addForm = addForm;
+        FormsController.updateForm = updateForm;
+        FormsController.deleteForm = deleteForm;
+        FormsController.selectForm = selectForm;
+        FormsController.openForm = openForm;
 
         //Data Population Functions
         function getAllFormsForUser() {
@@ -33,7 +38,7 @@
             function success_callback(response) {
                 if (response != null) {
                     console.log(response);
-                    $scope.forms = response.data;
+                    FormsController.forms = response.data;
                 }
             }
 
@@ -44,11 +49,11 @@
 
         function updateFormToScope(response) {
             if (Array.isArray(response)) {
-                $scope.forms = response;
+                FormsController.forms = response;
             } else {
-                var scopeForms = $scope.forms;
+                var scopeForms = FormsController.forms;
                 scopeForms.push(response);
-                $scope.forms = scopeForms;
+                FormsController.forms = scopeForms;
             }
         }
 
@@ -66,8 +71,8 @@
             function success_callback(response) {
                 if (response != null) {
                     console.log(response);
-                    $scope.forms = response.data;
-                    $scope.form_title = "";
+                    FormsController.forms = response.data;
+                    FormsController.form_title = "";
                     //Updating the model with the newly added form.
                     //updateFormToScope(response);
                     //There is a totally wired thing happening, where while adding form, the new form gets
@@ -82,20 +87,20 @@
         }
 
         function updateForm() {
-            if (!$scope.form_id || $scope.form_id === "") {
+            if (!FormsController.form_id || FormsController.form_id === "") {
                 return;
             }
             var newUserForm = {
-                "title": $scope.form_title,
+                "title": FormsController.form_title,
                 "userId": $rootScope.user._id
             };
             FormService
-                .updateFormById($scope.form_id, newUserForm)
+                .updateFormById(FormsController.form_id, newUserForm)
                 .then(success_callback, error_callback);
             function success_callback(response) {
                 if (response != null) {
-                    $scope.form_title = "";
-                    $scope.form_id = "";
+                    FormsController.form_title = "";
+                    FormsController.form_id = "";
                     getAllFormsForUser();
                 }
             }
@@ -121,17 +126,17 @@
         }
 
         function selectForm(formId, formTitle) {
-            $scope.form_id = formId;
-            $scope.form_title = formTitle;
+            FormsController.form_id = formId;
+            FormsController.form_title = formTitle;
         }
 
-        function openForm(formId,formTitle) {
-            var form={
-                _id:formId,
-                title:formTitle
-            }
-            $rootScope.form =form;
-            $location.url("/"+formId+"/fields");
+        function openForm(formId, formTitle) {
+            var newForm = {
+                _id: formId,
+                title: formTitle
+            };
+            $rootScope.form = newForm;
+            $location.url("/" + formId + "/fields");
         }
     }
 })();

@@ -16,7 +16,7 @@
             templateUrl: "directives/formfield/form.field.directive.html",
             link: function (scope, element, attrs) {
                 scope.removeField = function (fieldId) {
-                    scope.$parent.removeField(fieldId);
+                    scope.$parent.model.removeField(fieldId);
                 };
                 scope.openEditModel = function (field) {
                     console.log("Call Modal from Directive");
@@ -36,7 +36,7 @@
                     modalInstance.result.then(function (field) {
                         console.log(field);
                         console.log(scope);
-                        scope.$parent.$parent.updateField(field);
+                        scope.$parent.$parent.model.updateField(field);
                     }, function (originalfield) {
                         console.log(originalfield);
                         scope.$parent.field = originalfield;
@@ -46,7 +46,7 @@
 
                 scope.duplicateField = function (field) {
                     console.log(field);
-                    scope.$parent.duplicateField(field);
+                    scope.$parent.model.duplicateField(field);
                 }
             }
         }

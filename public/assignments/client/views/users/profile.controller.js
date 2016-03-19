@@ -9,6 +9,12 @@
 
     function ProfileController(UserService, $scope, $rootScope, $location) {
 
+        function inti(){
+            if(!$rootScope.user){
+               $location.url("/home");
+            }
+        };
+        inti();
 
         //Event Handlers Decelerations
         $scope.update = Update;

@@ -7,10 +7,12 @@
         .module("FormBuilderApp")
         .controller("LoginController", LoginController)
 
-    function LoginController(UserService, $scope, $location, $rootScope) {
+    function LoginController(UserService, $location, $rootScope) {
+
+        var LoginController = this;
 
         //Event Handlers Decelerations
-        $scope.login = Login;
+        LoginController.login = Login;
 
         //Event Handlers Implementations
         function Login(credentials) {

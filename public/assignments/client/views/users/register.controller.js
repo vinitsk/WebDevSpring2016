@@ -7,10 +7,11 @@
         .module("FormBuilderApp")
         .controller("RegisterController", RegisterController)
 
-    function RegisterController(UserService, $scope, $rootScope, $location) {
+    function RegisterController(UserService, $rootScope, $location) {
 
+        var RegisterController = this;
         //Event Handlers Decelerations
-        $scope.register = Register;
+        RegisterController.register = Register;
 
         //Event Handlers Implementations
         function Register(user) {
