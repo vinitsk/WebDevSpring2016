@@ -23,6 +23,10 @@
                     {"label": "Radio Buttons Field", "value": "RADIOS"},
                     {"label": "Checkboxes Field", "value": "CHECKBOXES"},
                 ]
+
+                $scope.sortableOptions = {
+                    handle: ".field-move"
+                };
             };
             init();
 

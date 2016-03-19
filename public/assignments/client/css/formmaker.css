@@ -34,3 +34,6 @@
 .no-wrap{
     white-space: nowrap;
 }
+.field-move{
+    cursor:move;
+}

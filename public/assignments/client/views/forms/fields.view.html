@@ -6,9 +6,12 @@
         <div class="row" ng-include="'views/forms/forms.tab.view.html'">
         </div>
         <div class="row no-left-margin top-margin-30">&nbsp;</div>
-        <div class="row no-left-margin" ng-repeat="field in fields">
-            <form-field field="field""></form-field>
+        <div  ui-sortable="sortableOptions" ng-model="fields">
+            <div class="row no-left-margin" ng-repeat="field in fields">
+                <form-field field="field"></form-field>
+            </div>
         </div>
+
         <div class="row no-left-margin top-margin-30 jumbotron">
             <form>
                 <div class="col-lg-9 col-md-9 col-sm-6 col-xs-6">
