@@ -33,7 +33,7 @@ module.exports = function () {
     function getFormById(formId) {
         var deferred = q.defer();
         var formFound = false;
-        for (let form of data) {
+        for (var form of data) {
             if (form._id == formId) {
                 deferred.resolve(form);
                 formFound = true;
@@ -50,7 +50,7 @@ module.exports = function () {
         var deferred = q.defer();
         var formFound = false;
         var userForms = [];
-        for (let form of data) {
+        for (var form of data) {
             if (form.userId == userId) {
                 userForms.push(form);
                 formFound = true;
@@ -66,7 +66,7 @@ module.exports = function () {
 
     function findUserForms(userId) {
         var userForms = [];
-        for (let form of data) {
+        for (var form of data) {
             if (form.userId == userId) {
                 userForms.push(form);
             }
@@ -77,7 +77,7 @@ module.exports = function () {
     function deleteFormById(formId) {
         var deferred = q.defer();
         var formFound = false;
-        for (let formIndex in data) {
+        for (var formIndex in data) {
             if (data[formIndex]._id == formId) {
                 var userId = data[formIndex].userId;
                 data.splice(formIndex, 1);
@@ -95,7 +95,7 @@ module.exports = function () {
     function updateFormById(formId, form) {
         var deferred = q.defer();
         var formFound = false;
-        for (let currentForm of data) {
+        for (var currentForm of data) {
             if (currentForm._id == formId) {
                 currentForm.userId = form.userId;
                 currentForm.title = form.title;
@@ -114,7 +114,7 @@ module.exports = function () {
     function getAllFormFields(formId) {
         var deferred = q.defer();
         var formFound = false;
-        for (let form of data) {
+        for (var form of data) {
             if (form._id == formId) {
                 formFound = true;
                 deferred.resolve(form.fields);
@@ -130,9 +130,9 @@ module.exports = function () {
     function getFormField(formId, fieldId) {
         var deferred = q.defer();
         var fieldFound = false;
-        formLoop:for (let form of data) {
+        formLoop:for (var form of data) {
             if (form._id == formId) {
-                fieldLoop:for (let field of form.fields) {
+                fieldLoop:for (var field of form.fields) {
                     if (field._id == fieldId) {
                         fieldFound = true;
                         deferred.resolve(field);
@@ -151,10 +151,10 @@ module.exports = function () {
     function deleteFormField(formId, fieldId) {
         var deferred = q.defer();
         var fieldFound = false;
-        formLoop:for (let form of data) {
+        formLoop:for (var form of data) {
             if (form._id == formId) {
                 var fields = form.fields;
-                fieldLoop:for (let fieldIndex in fields) {
+                fieldLoop:for (var fieldIndex in fields) {
                     if (fields[fieldIndex]._id == fieldId) {
                         fieldFound = true;
                         fields.splice(fieldIndex, 1);
@@ -174,7 +174,7 @@ module.exports = function () {
     function createNewFormField(formId, field) {
         var deferred = q.defer();
         var formFound = false;
-        for (let form of data) {
+        for (var form of data) {
             if (form._id == formId) {
                 formFound = true;
                 field._id = Math.floor(Math.random() * 900) + 100;
@@ -198,10 +198,10 @@ module.exports = function () {
     function updateFormField(formId, fieldId, newField) {
         var deferred = q.defer();
         var fieldFound = false;
-        formLoop:for (let form of data) {
+        formLoop:for (var form of data) {
             if (form._id == formId) {
                 var fields = form.fields;
-                fieldLoop:for (let field of fields) {
+                fieldLoop:for (var field of fields) {
                     if (field._id == fieldId) {
                         field.label = newField.label;
                         field.type = newField.type;
@@ -224,7 +224,7 @@ module.exports = function () {
     function updateAllFormFields(formId, newFields){
         var deferred = q.defer();
         var fieldFound = false;
-        formLoop:for (let form of data) {
+        formLoop:for (var form of data) {
             if (form._id == formId) {
                 form.fields =newFields;
                 fieldFound = true;

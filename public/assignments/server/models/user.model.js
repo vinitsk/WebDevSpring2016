@@ -21,7 +21,7 @@ module.exports = function () {
     function findUserById(userID) {
         var deferred = q.defer();
         var userFound = false;
-        for (let user of data) {
+        for (var user of data) {
             if (user._id == userID) {
                 deferred.resolve(user);
                 userFound = true;
@@ -37,7 +37,7 @@ module.exports = function () {
     function findUserByUsername(username) {
         var deferred = q.defer();
         var userFound = false;
-        for (let user of data) {
+        for (var user of data) {
             if (user.username == username) {
                 deferred.resolve(user);
                 userFound = true;
@@ -53,7 +53,7 @@ module.exports = function () {
     function findUserByCredentials(credentials) {
         var deferred = q.defer();
         var userFound = false;
-        for (let user of data) {
+        for (var user of data) {
             if (user.username == credentials.username && user.password == credentials.password) {
                 deferred.resolve(user);
                 userFound = true;
@@ -86,7 +86,7 @@ module.exports = function () {
     function deleteUserById() {
         var deferred = q.defer();
         var userFound = false;
-        for (let currentUserIndex in data) {
+        for (var currentUserIndex in data) {
             if (data[currentUserIndex]._id == userID) {
                 data.splice(currentUserIndex, 1);
                 deferred.resolve(data);
@@ -103,7 +103,7 @@ module.exports = function () {
     function updateUser(userID, user) {
         var deferred = q.defer();
         var userFound = false;
-        for (let currentUser of data) {
+        for (var currentUser of data) {
             if (currentUser._id == userID) {
                 currentUser.email = user.email;
                 currentUser.firstName = user.firstName;
