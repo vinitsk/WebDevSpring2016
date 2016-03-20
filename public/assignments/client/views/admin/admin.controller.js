@@ -7,15 +7,24 @@
         .module("FormBuilderApp")
         .controller("AdminController", AdminController)
 
-    function AdminController(UserService,$location,$scope,$rootScope) {
+    function AdminController(UserService, $location, $scope, $rootScope) {
 
-        populateUsers();
+        var AdminController = this;
 
-        function populateUsers(){
+        function init() {
+            if (!$rootScope.user) {
+                $location.url("/home");
+            }
+            populateUsers();
+        }
+
+        init();
+
+        function populateUsers() {
             UserService.findAllUsers(callback);
 
-            function callback(response){
-                $rootScope.users = response;
+            function callback(response) {
+                AdminController.users = response;
             }
         };
 

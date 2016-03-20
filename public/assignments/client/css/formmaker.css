@@ -1,39 +1,63 @@
-.full-button-width{
+.full-button-width {
     width: 100%;
 }
-.top-margin-10{
+
+.top-margin-10 {
     margin-top: 10px;
 }
-.top-margin-15{
+
+.top-margin-15 {
     margin-top: 15px;
 }
-.top-margin-25{
+
+.top-margin-25 {
     margin-top: 25px;
 }
-.top-margin-30{
+
+.top-margin-30 {
     margin-top: 30px;
 }
-.no-padding{
+
+.no-padding {
     padding: 0 0 0 0;
 }
-.no-left-padding{
+
+.no-left-padding {
     padding-left: 0px;
 }
-.no-left-margin{
+
+.no-left-margin {
     margin-left: 0px;
 }
-.no-top-margin{
+
+.no-top-margin {
     margin-top: 0px;
 }
+
 .right-align {
     float: right !important;
 }
-.full-width{
+
+.full-width {
     width: 100%;
 }
-.no-wrap{
+
+.no-wrap {
     white-space: nowrap;
 }
-.field-move{
-    cursor:move;
+
+.field-move {
+    cursor: move;
+}
+
+.form-field-div {
+    background-color: whitesmoke;
+    margin: 8px;
+    padding: 2px;
+    -moz-border-radius: 6px;
+}
+
+.form-field-div:hover {
+    /*margin: 5px;*/
+    box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
 }

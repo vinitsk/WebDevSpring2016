@@ -100,7 +100,7 @@ module.exports = function () {
             if (currentForm._id == formId) {
                 currentForm.userId = form.userId;
                 currentForm.title = form.title;
-                currentForm.fields = form.fields;
+                //currentForm.fields = form.fields;
                 deferred.resolve(currentForm);
                 formFound = true;
                 break;
@@ -229,6 +229,7 @@ module.exports = function () {
             if (form._id == formId) {
                 form.fields =newFields;
                 fieldFound = true;
+                deferred.resolve(form.fields);
                 break formLoop;
             }
         }
