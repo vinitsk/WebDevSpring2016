@@ -178,7 +178,7 @@ module.exports = function () {
         for (var formIndex in data) {
             if (data[formIndex]._id == formId) {
                 formFound = true;
-                data[formIndex]._id = Math.floor(Math.random() * 900) + 100;
+                field._id = Math.floor(Math.random() * 900) + 100;
                 if (data[formIndex].fields) {
                     data[formIndex].fields.push(field);
                 } else {
