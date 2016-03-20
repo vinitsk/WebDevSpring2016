@@ -2,8 +2,6 @@
  * Created by Bhanu on 18/03/2016.
  */
 
-"use strict";
-
 // load q promise library
 var q = require("q");
 

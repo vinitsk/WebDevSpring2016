@@ -1,8 +1,6 @@
 /**
  * Created by Bhanu on 18/03/2016.
  */
-
-"use strict";
 module.exports = function (app, userModel) {
 
     app.get("/api/assignment/user", findUser);
