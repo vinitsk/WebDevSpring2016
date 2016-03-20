@@ -21,9 +21,9 @@ module.exports = function () {
     function findUserById(userID) {
         var deferred = q.defer();
         var userFound = false;
-        for (var user of data) {
-            if (user._id == userID) {
-                deferred.resolve(user);
+        for (var userIndex in data) {
+            if (data[userIndex]._id == userID) {
+                deferred.resolve(data[userIndex]);
                 userFound = true;
                 break;
             }
@@ -37,9 +37,9 @@ module.exports = function () {
     function findUserByUsername(username) {
         var deferred = q.defer();
         var userFound = false;
-        for (var user of data) {
-            if (user.username == username) {
-                deferred.resolve(user);
+        for (var userIndex in data) {
+            if (data[userIndex].username == username) {
+                deferred.resolve(data[userIndex]);
                 userFound = true;
                 break;
             }
@@ -53,9 +53,9 @@ module.exports = function () {
     function findUserByCredentials(credentials) {
         var deferred = q.defer();
         var userFound = false;
-        for (var user of data) {
-            if (user.username == credentials.username && user.password == credentials.password) {
-                deferred.resolve(user);
+        for (var userIndex in data) {
+            if (data[userIndex].username == credentials.username && data[userIndex].password == credentials.password) {
+                deferred.resolve(data[userIndex]);
                 userFound = true;
                 break;
             }
@@ -103,13 +103,13 @@ module.exports = function () {
     function updateUser(userID, user) {
         var deferred = q.defer();
         var userFound = false;
-        for (var currentUser of data) {
-            if (currentUser._id == userID) {
-                currentUser.email = user.email;
-                currentUser.firstName = user.firstName;
-                currentUser.lastName = user.lastName;
-                currentUser.passowrd = user.passowrd;
-                deferred.resolve(currentUser);
+        for (var userIndex in data) {
+            if (data[userIndex]._id == userID) {
+                data[userIndex].email = user.email;
+                data[userIndex].firstName = user.firstName;
+                data[userIndex].lastName = user.lastName;
+                data[userIndex].passowrd = user.passowrd;
+                deferred.resolve(data[userIndex]);
                 userFound = true;
                 break;
             }
