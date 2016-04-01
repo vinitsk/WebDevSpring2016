@@ -20,7 +20,7 @@
                 controller: "AdminController",
                 controllerAs: "model"
             })
-            .when("/profile", {
+            .when("/:userId/profile", {
                 templateUrl: "views/users/profile.view.html",
                 controller: "ProfileController"
             })
@@ -34,7 +34,7 @@
                 controller: "LoginController",
                 controllerAs: "model"
             })
-            .when("/forms", {
+            .when("/:userId/forms", {
                 templateUrl: "views/forms/forms.view.html",
                 controller: "FormsController",
                 controllerAs: "model"

@@ -9,9 +9,9 @@
 
     function ProfileController(UserService, $scope, $rootScope, $location) {
 
-        function inti(){
-            if(!$rootScope.user){
-               $location.url("/home");
+        function inti() {
+            if (!$rootScope.user) {
+                $location.url("/home");
             }
         };
         inti();
@@ -29,9 +29,10 @@
                     console.log(response);
                     $rootScope.user = response.data;
                     //Navigating to the Profile Page of this particular User
-                    $location.url("/profile");
+                    $location.url($rootScope.user._id + "/profile");
                 }
             }
+
             function error_callback(error) {
                 console.log(error);
             }

@@ -1,25 +1,40 @@
-<nav ng-controller="HeaderController" class="navbar navbar-inverse navbar-fixed-top">
+<nav ng-controller="HeaderController"
+     class="navbar navbar-inverse navbar-fixed-top">
     <div class="container-fluid">
         <div class="navbar-header">
-            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar"
-                    aria-expanded="false" aria-controls="navbar">
+            <button type="button"
+                    class="navbar-toggle collapsed"
+                    data-toggle="collapse"
+                    data-target="#navbar"
+                    aria-expanded="false"
+                    aria-controls="navbar">
                 <span class="sr-only">Toggle navigation</span>
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="#">Form Maker</a>
+            <a class="navbar-brand"
+               href="#">Form Maker</a>
         </div>
-
-        <div id="navbar" class="navbar-collapse collapse">
+        <div id="navbar"
+             class="navbar-collapse collapse">
             <ul class="nav navbar-nav navbar-right">
                 <li ng-show="user"><a href="#/profile">{{user.firstName}}</a></li>
                 <li ng-class="{active: $location.url() == '/home'}"><a href="#/home">Home</a></li>
-                <li ng-show="user" ng-class="{active: $location.url() == '/profile'}"><a href="#/profile">Profile</a></li>
-                <li ng-show="user && user.roles.indexOf('admin') > -1" ng-class="{active: $location.url() == '/admin'}"><a href="#/admin">Admin</a></li>
-                <li ng-show="user" ng-class="{active: $location.url() == '/forms'}"><a href="#/forms">Forms</a></li>
-                <li ng-hide="user" ng-class="{active: $location.url() == '/register'}"><a href="#/register">Register</a></li>
-                <li ng-hide="user" ng-class="{active: $location.url() == '/login'}"><a href="#/login">Login</a></li>
+                <li ng-show="user"
+                    ng-class="{active: $location.url() == '/'+user._id+'/profile'}"><a
+                        href={{'#/'+user._id+'/profile'}}>Profile</a></li>
+                <li ng-show="user && user.roles.indexOf('admin') > -1"
+                    ng-class="{active: $location.url() == '/admin'}">
+                    <a href="#/admin">Admin</a></li>
+                <li ng-show="user"
+                    ng-class="{active: $location.url() == '/'+user._id+'/forms'}"><a
+                        href={{'#/'+user._id+'/forms'}}>Forms</a></li>
+                <li ng-hide="user"
+                    ng-class="{active: $location.url() == '/register'}"><a href="#/register">Register</a>
+                </li>
+                <li ng-hide="user"
+                    ng-class="{active: $location.url() == '/login'}"><a href="#/login">Login</a></li>
                 <li ng-show="user"><a ng-click="logout()">Logout</a></li>
             </ul>
         </div>

@@ -6,8 +6,6 @@
 var q = require("q");
 /*Load Mongoose*/
 var mongoose = require("mongoose");
-
-var data = require("./user.mock.json");
 module.exports = function () {
     var UserSchema = require("./user.schema.server.js")();
     var User = mongoose.model("User", UserSchema);
@@ -142,7 +140,6 @@ module.exports = function () {
 
     function updateUser(userID, user) {
         var deferred = q.defer();
-        var userFound = false;
         User.findOneAndUpdate(
             {_id: userID},
             {$set: mapDBUser(user)},

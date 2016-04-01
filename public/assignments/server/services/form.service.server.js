@@ -12,8 +12,9 @@ module.exports = function (app, formModel) {
     function createFormForUser(req, res) {
         console.log("createFormForUser");
         var form = req.body;
+        form['userId'] = req.params.userId;
         formModel
-            .createFormForUser(req.params.userId, form)
+            .createFormForUser(form)
             .then(success_callback, error_callback);
 
         function success_callback(response) {
@@ -27,8 +28,9 @@ module.exports = function (app, formModel) {
 
     function getFormById(req, res) {
         console.log("getFormById");
+        var form = {'_id': req.params.formId};
         formModel
-            .getFormById(req.params.formId)
+            .getFormById(form)
             .then(success_callback, error_callback);
 
         function success_callback(response) {
@@ -42,8 +44,9 @@ module.exports = function (app, formModel) {
 
     function findAllFormsForUser(req, res) {
         console.log("findAllFormsForUser");
+        var form = {'userId': req.params.userId};
         formModel
-            .findAllFormsForUser(req.params.userId)
+            .findAllFormsForUser(form)
             .then(success_callback, error_callback);
 
         function success_callback(response) {
@@ -58,8 +61,9 @@ module.exports = function (app, formModel) {
 
     function deleteFormById(req, res) {
         console.log("deleteFormById");
+        var form = {'_id': req.params.formId};
         formModel
-            .deleteFormById(req.params.formId)
+            .deleteFormById(form)
             .then(success_callback, error_callback);
 
         function success_callback(response) {
@@ -76,7 +80,7 @@ module.exports = function (app, formModel) {
         console.log("updateFormById");
         var form = req.body;
         formModel
-            .updateFormById(req.params.formId,form)
+            .updateFormById(req.params.formId, form)
             .then(success_callback, error_callback);
 
         function success_callback(response) {
@@ -87,5 +91,4 @@ module.exports = function (app, formModel) {
             res.status(400).send(error);
         }
     }
-
-}
+};

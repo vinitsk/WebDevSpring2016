@@ -26,7 +26,7 @@
                     console.log(response);
                     $rootScope.user = response.data;
                     //Navigating to the Profile Page of this particular User
-                    $location.url("/profile");
+                    $location.url($rootScope.user._id + "/profile");
                 }
             }
 

@@ -7,9 +7,10 @@
         .module("FormBuilderApp")
         .controller("FormsController", FormsController);
 
-    function FormsController(FormService, $rootScope, $location) {
+    function FormsController(FormService, $rootScope, $location, $routeParams) {
 
         var FormsController = this;
+        FormsController.userId = $routeParams.userId;
         function init() {
             if (!$rootScope.user) {
                 $location.url("/");
@@ -18,6 +19,7 @@
             //Setting the forms from the scope to populate UI
             getAllFormsForUser();
         }
+
         init();
 
         //Event Handlers Decelerations
@@ -29,11 +31,11 @@
 
         //Data Population Functions
         function getAllFormsForUser() {
-            if (!$rootScope.user) {
+            if (!FormsController.userId) {
                 return;
             }
             FormService
-                .findAllFormsForUser($rootScope.user._id)
+                .findAllFormsForUser(FormsController.userId)
                 .then(success_callback, error_callback);
             function success_callback(response) {
                 if (response != null) {
@@ -115,9 +117,8 @@
                 .deleteFormById(formId)
                 .then(success_callback, error_callback);
             function success_callback(response) {
-                if (response != null) {
-                    updateFormToScope(response.data);
-                }
+                console.log(response);
+                getAllFormsForUser()
             }
 
             function error_callback(error) {
