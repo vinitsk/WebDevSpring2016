@@ -9,11 +9,11 @@ module.exports = function (app, userModel) {
     app.put("/api/assignment/user/:id", updateUser);
     app.delete("/api/assignment/user/:id", deleteUser);
 
-    function deleteUser(res,response){
+    function deleteUser(res, response) {
         var user = req.body;
         console.log("updateUser");
         userModel
-            .deleteUserById(req.params.id,user)
+            .deleteUserById(req.params.id, user)
             .then(success_callback, error_callback);
 
         function success_callback(response) {
@@ -29,7 +29,7 @@ module.exports = function (app, userModel) {
         var user = req.body;
         console.log("updateUser");
         userModel
-            .updateUser(req.params.id,user)
+            .updateUser(req.params.id, user)
             .then(success_callback, error_callback);
 
         function success_callback(response) {
