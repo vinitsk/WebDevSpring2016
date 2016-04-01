@@ -43,8 +43,11 @@ module.exports = function (app, userModel) {
 
     function findUserById(req, res) {
         console.log("findUserById");
+        var user = {
+            username: req.params.id
+        };
         userModel
-            .findUserById(req.params.id)
+            .findUserById(user)
             .then(success_callback, error_callback);
 
         function success_callback(response) {
@@ -66,8 +69,10 @@ module.exports = function (app, userModel) {
             };
             findUserByCredentials(req, res, credentials);
         } else if (req.query.username) {
-            var username = req.query.username;
-            findUserByUsername(req, res, username);
+            var user = {
+                username: req.query.username
+            };
+            findUserByUsername(req, res, user);
         }
         else {
             findAllUsers(req, res)
@@ -120,10 +125,10 @@ module.exports = function (app, userModel) {
 
     }
 
-    function findUserByUsername(req, res, username) {
+    function findUserByUsername(req, res, user) {
         console.log("findUserByUsername");
         userModel
-            .findUserByUsername(username)
+            .findUserByUsername(user)
             .then(success_callback, error_callback);
 
         function success_callback(response) {

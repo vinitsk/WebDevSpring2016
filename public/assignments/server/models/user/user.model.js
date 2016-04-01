@@ -22,53 +22,57 @@ module.exports = function () {
     };
     return api;
 
-    function findUserById(userID) {
+    function findUserById(user) {
         var deferred = q.defer();
-        var userFound = false;
-        for (var userIndex in data) {
-            if (data[userIndex]._id == userID) {
-                deferred.resolve(data[userIndex]);
-                userFound = true;
-                break;
+        User.findOne(
+            mapDBUser(user), function (err, doc) {
+                if (err) {
+                    console.log("Error in findUserById");
+                    console.log(err);
+                    deferred.reject(err);
+                } else {
+                    console.log("User Found");
+                    deferred.resolve(doc);
+                }
             }
-        }
-        if (!userFound) {
-            deferred.reject("No Match Found.");
-        }
+        );
         return deferred.promise;
     }
 
-    function findUserByUsername(username) {
+    function findUserByUsername(user) {
         var deferred = q.defer();
-        var userFound = false;
-        for (var userIndex in data) {
-            if (data[userIndex].username == username) {
-                deferred.resolve(data[userIndex]);
-                userFound = true;
-                break;
+        User.findOne(
+            mapDBUser(user), function (err, doc) {
+                if (err) {
+                    console.log("Error in findUserByUsername");
+                    console.log(err);
+                    deferred.reject(err);
+                } else {
+                    console.log("User Found");
+                    deferred.resolve(doc);
+                }
             }
-        }
-        if (!userFound) {
-            deferred.reject("No Match Found.");
-        }
+        );
         return deferred.promise;
     }
 
     function findUserByCredentials(credentials) {
         var deferred = q.defer();
-        var userFound = false;
-        for (var userIndex in data) {
-            if (data[userIndex].username == credentials.username && data[userIndex].password == credentials.password) {
-                deferred.resolve(data[userIndex]);
-                userFound = true;
-                break;
+        User.findOne(
+            mapDBUser(credentials), function (err, doc) {
+                if (err) {
+                    console.log("Error in findUserByCredentials");
+                    console.log(err);
+                    deferred.reject(err);
+                } else {
+                    console.log("User Found");
+                    console.log(doc);
+                    deferred.resolve(doc);
+                }
             }
-        }
-        if (!userFound) {
-            deferred.reject("No Match Found.");
-        }
+        );
         return deferred.promise;
-    };
+    }
 
     function findAllUsers() {
         // use q to defer the response
@@ -94,6 +98,9 @@ module.exports = function () {
 
     function mapDBUser(user) {
         var new_user = {};
+        if ('_id' in user) {
+            new_user['_id'] = user._id;
+        }
         if ('username' in user) {
             new_user['username'] = user.username;
         }
@@ -135,20 +142,20 @@ module.exports = function () {
     function updateUser(userID, user) {
         var deferred = q.defer();
         var userFound = false;
-        for (var userIndex in data) {
-            if (data[userIndex]._id == userID) {
-                data[userIndex].email = user.email;
-                data[userIndex].firstName = user.firstName;
-                data[userIndex].lastName = user.lastName;
-                data[userIndex].passowrd = user.passowrd;
-                deferred.resolve(data[userIndex]);
-                userFound = true;
-                break;
-            }
-        }
-        if (!userFound) {
-            deferred.reject("No Match Found.");
-        }
+        User.findOneAndUpdate(
+            {_id: userID},
+            {$set: mapDBUser(user)},
+            {new: true},
+            function (err, doc) {
+                if (err) {
+                    console.log("Error in updateUser");
+                    console.log(err);
+                    deferred.reject(err);
+                } else {
+                    console.log(doc);
+                    deferred.resolve(doc);
+                }
+            });
         return deferred.promise;
     }
 };
