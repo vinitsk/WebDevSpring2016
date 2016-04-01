@@ -122,20 +122,21 @@ module.exports = function () {
         return new_user;
     }
 
-    function deleteUserById() {
+    function deleteUserById(user) {
         var deferred = q.defer();
-        var userFound = false;
-        for (var currentUserIndex in data) {
-            if (data[currentUserIndex]._id == userID) {
-                data.splice(currentUserIndex, 1);
-                deferred.resolve(data);
-                userFound = true;
-                break;
+        User.delete(
+            mapDBUser(user), function (err, doc) {
+                if (err) {
+                    console.log("Error in findUserByCredentials");
+                    console.log(err);
+                    deferred.reject(err);
+                } else {
+                    console.log("User Found");
+                    console.log(doc);
+                    deferred.resolve(doc);
+                }
             }
-        }
-        if (!userFound) {
-            deferred.reject("No Match Found.");
-        }
+        );
         return deferred.promise;
     }
 

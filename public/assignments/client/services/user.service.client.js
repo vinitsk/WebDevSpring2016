@@ -10,29 +10,6 @@
 
     function UserService($http) {
 
-        var current_users = [
-            {
-                "_id": 123, "firstName": "Alice", "lastName": "Wonderland",
-                "username": "alice", "password": "alice", "roles": ["student"], "email": "alice@test.com"
-            },
-            {
-                "_id": 234, "firstName": "Bob", "lastName": "Hope",
-                "username": "bob", "password": "bob", "roles": ["admin"], "email": "bob@test.com"
-            },
-            {
-                "_id": 345, "firstName": "Charlie", "lastName": "Brown",
-                "username": "charlie", "password": "charlie", "roles": ["faculty"], "email": "charlie@test.com"
-            },
-            {
-                "_id": 456, "firstName": "Dan", "lastName": "Craig",
-                "username": "dan", "password": "dan", "roles": ["faculty", "admin"], "email": "craig@test.com"
-            },
-            {
-                "_id": 567, "firstName": "Edward", "lastName": "Norton",
-                "username": "ed", "password": "ed", "roles": ["student"], "email": "edward@test.com"
-            }
-        ];
-
         var api = {
             findUserByCredentials: findUserByCredentials,
             findAllUsers: findAllUsers,
@@ -48,8 +25,8 @@
         //Calls back with user found or null otherwise
         function findUserByCredentials(credentials) {
             var url = "/api/assignment/user";
-            url+="?username="+credentials.username;
-            url+="&password="+credentials.password;
+            url += "?username=" + credentials.username;
+            url += "&password=" + credentials.password;
             return $http.get(url);
         }
 
@@ -69,21 +46,18 @@
                 var url = "/api/assignment/user";
                 return $http.post(url, user);
             }
-        };
+        }
 
         //Accepts parameters user id and callback function
         //Iterates over the array of current users looking for a
         // user object whose user id is equal to parameter user id
         //If found, removes user from the array of current users
         //Calls back with remaining array of all users
-        function deleteUserById(userId, callback) {
-            for (let user_index in current_users) {
-                if (current_users[user_index]._id === userId) {
-                    current_users.splice(user_index, 1);
-                }
-                callback(current_users);
-            }
-        };
+        function deleteUserById(userId) {
+            var url = "/api/assignment/user/";
+            url += userId;
+            return $http.delete(url);
+        }
 
 
         //Accepts parameters user id, user object and callback function
@@ -93,8 +67,8 @@
         //Calls back with updated user
         function updateUser(userId, newUser) {
             var url = "/api/assignment/user/";
-            url+=userId;
+            url += userId;
             return $http.put(url, newUser);
         }
-    };
+    }
 })();

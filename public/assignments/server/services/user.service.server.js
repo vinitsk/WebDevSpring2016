@@ -10,10 +10,12 @@ module.exports = function (app, userModel) {
     app.delete("/api/assignment/user/:id", deleteUser);
 
     function deleteUser(res, response) {
-        var user = req.body;
-        console.log("updateUser");
+        console.log("Delete User");
+        var user = {
+            _id: req.params.id
+        };
         userModel
-            .deleteUserById(req.params.id, user)
+            .deleteUserById(user)
             .then(success_callback, error_callback);
 
         function success_callback(response) {
