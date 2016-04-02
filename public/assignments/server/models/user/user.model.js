@@ -1,7 +1,7 @@
 /**
  * Created by Bhanu on 18/03/2016.
  */
-module.exports = function (User, q) {
+module.exports = function (User) {
     var api = {
         findUserByCredentials: findUserByCredentials,
         findAllUsers: findAllUsers,

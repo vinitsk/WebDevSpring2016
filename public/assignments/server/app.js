@@ -2,8 +2,6 @@ module.exports = function (app) {
 
     /*Load Mongoose*/
     var mongoose = require("mongoose");
-    /*Load q promise library*/
-    var q = require("q");
 
     /*DB Models*/
     var UserSchema = require("./models/user/user.schema.server.js")(mongoose);
@@ -15,9 +13,9 @@ module.exports = function (app) {
 
 
     /*Node Models*/
-    var userModel = require("./models/user/user.model.js")(User, q);
-    var formModel = require("./models/form/form.model.js")(Form, q);
-    var fieldModel = require("./models/field/field.model.js")(Form, q);
+    var userModel = require("./models/user/user.model.js")(User);
+    var formModel = require("./models/form/form.model.js")(Form);
+    var fieldModel = require("./models/field/field.model.js")(Form);
 
     /*Server Services*/
     require("./services/user.service.server.js")(app, userModel);

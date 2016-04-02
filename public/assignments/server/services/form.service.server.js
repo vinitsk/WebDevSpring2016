@@ -28,13 +28,16 @@ module.exports = function (app, formModel) {
 
     function getFormById(req, res) {
         console.log("getFormById");
-        var form = {'_id': req.params.formId};
         formModel
-            .getFormById(form)
+            .getFormById(req.params.formId)
             .then(success_callback, error_callback);
 
         function success_callback(response) {
-            res.json(response);
+            if (respnse) {
+                res.json(response);
+            } else {
+                res.status(400).send("Not Found");
+            }
         }
 
         function error_callback(error) {
@@ -44,9 +47,8 @@ module.exports = function (app, formModel) {
 
     function findAllFormsForUser(req, res) {
         console.log("findAllFormsForUser");
-        var form = {'userId': req.params.userId};
         formModel
-            .findAllFormsForUser(form)
+            .findAllFormsForUser(req.params.userId)
             .then(success_callback, error_callback);
 
         function success_callback(response) {
@@ -61,9 +63,8 @@ module.exports = function (app, formModel) {
 
     function deleteFormById(req, res) {
         console.log("deleteFormById");
-        var form = {'_id': req.params.formId};
         formModel
-            .deleteFormById(form)
+            .deleteFormById(req.params.formId)
             .then(success_callback, error_callback);
 
         function success_callback(response) {
