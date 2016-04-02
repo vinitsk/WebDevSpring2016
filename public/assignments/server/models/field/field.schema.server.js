@@ -1,9 +1,12 @@
-var mongoose = require("mongoose");
-module.exports = function () {
+module.exports = function (mongoose) {
     return mongoose.Schema({
         label: String,
-        type: String,
         placeholder: String,
-        options: [String]
+        type: {
+            type: String,
+            default: "TEXT",
+            enum: ['TEXT', 'TEXTAREA', 'EMAIL', 'PASSWORD', 'OPTIONS', 'DATE', 'RADIOS', 'CHECKBOXES']
+        },
+        options: [{label: String, value: String}]
     }, {collection: 'field'});
 };

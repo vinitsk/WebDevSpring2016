@@ -1,4 +1,4 @@
 <ul class="nav nav-tabs">
-    <li ng-class="{active: $location.url() == '/forms'}"><a href="#/forms">Forms</a></li>
+    <li ng-class="{active: $location.url() == '/forms'}"><a href="{{'#/'+user._id+'/forms'}}">Forms</a></li>
     <li ng-class="{active: $location.url().indexOf('/fields') > 0}"><a href="javascript:void(0);">Fields</a></li>
 </ul>

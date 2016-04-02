@@ -1,14 +1,7 @@
 /**
  * Created by Bhanu on 18/03/2016.
  */
-
-/*Load q promise library*/
-var q = require("q");
-/*Load Mongoose*/
-var mongoose = require("mongoose");
-module.exports = function () {
-    var UserSchema = require("./user.schema.server.js")();
-    var User = mongoose.model("User", UserSchema);
+module.exports = function (User, q) {
     var api = {
         findUserByCredentials: findUserByCredentials,
         findAllUsers: findAllUsers,

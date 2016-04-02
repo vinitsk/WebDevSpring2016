@@ -2,7 +2,7 @@
  * Created by Bhanu on 18/03/2016.
  */
 
-module.exports = function (app, formModel) {
+module.exports = function (app, fieldModel) {
 
     app.get("/api/assignment/form/:formId/field", getAllFormFields);
     app.get("/api/assignment/form/:formId/field/:fieldId", getFormField);
@@ -14,22 +14,22 @@ module.exports = function (app, formModel) {
 
     function getAllFormFields(req, res) {
         console.log("getAllFormFields");
-        formModel
+        fieldModel
             .getAllFormFields(req.params.formId)
             .then(success_callback, error_callback);
         function success_callback(response) {
-            res.json(response);
+            console.log(response.fields);
+            res.json(response.fields);
         }
-
-        function error_callback(error) {
-            res.status(400).send(error);
+        function error_callback(err) {
+            res.status(400).send(err);
         }
     }
 
     function getFormField(req, res) {
         console.log("getFormField");
-        formModel
-            .getFormField(req.params.formId, req.params.fieldId)
+        fieldModel
+            .getFormField(req.params.formId,req.params.fieldId)
             .then(success_callback, error_callback);
         function success_callback(response) {
             res.json(response);
@@ -42,7 +42,7 @@ module.exports = function (app, formModel) {
 
     function deleteFormField(req, res) {
         console.log("deleteFormField");
-        formModel
+        fieldModel
             .deleteFormField(req.params.formId, req.params.fieldId)
             .then(success_callback, error_callback);
         function success_callback(response) {
@@ -57,13 +57,13 @@ module.exports = function (app, formModel) {
     function createNewFormField(req, res) {
         console.log("createNewFormField");
         var field = req.body;
-        formModel
+        fieldModel
             .createNewFormField(req.params.formId, field)
             .then(success_callback, error_callback);
         function success_callback(response) {
-            res.json(response);
+            console.log(response.fields);
+            res.json(response.fields);
         }
-
         function error_callback(error) {
             res.status(400).send(error);
         }
@@ -72,11 +72,12 @@ module.exports = function (app, formModel) {
     function updateFormField(req, res) {
         console.log("updateFormField");
         var field = req.body;
-        formModel
+        fieldModel
             .updateFormField(req.params.formId, req.params.fieldId, field)
             .then(success_callback, error_callback);
         function success_callback(response) {
-            res.json(response);
+            console.log(response.fields);
+            res.json(response.fields);
         }
 
         function error_callback(error) {
@@ -84,10 +85,10 @@ module.exports = function (app, formModel) {
         }
     }
 
-    function updateAllFormFields(req, res){
+    function updateAllFormFields(req, res) {
         console.log("updateAllFormFields");
         var fields = req.body;
-        formModel
+        fieldModel
             .updateAllFormFields(req.params.formId, fields)
             .then(success_callback, error_callback);
         function success_callback(response) {
@@ -100,4 +101,4 @@ module.exports = function (app, formModel) {
 
     }
 
-}
+};

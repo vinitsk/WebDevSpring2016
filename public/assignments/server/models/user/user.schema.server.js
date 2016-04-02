@@ -1,5 +1,4 @@
-var mongoose = require("mongoose");
-module.exports = function () {
+module.exports = function (mongoose) {
     return mongoose.Schema({
         firstName: String,
         lastName: String,

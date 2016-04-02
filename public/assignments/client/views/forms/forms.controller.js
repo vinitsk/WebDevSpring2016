@@ -137,7 +137,7 @@
                 title: formTitle
             };
             $rootScope.form = newForm;
-            $location.url("/" + formId + "/fields");
+            $location.url("/" + $rootScope.user._id + "/" + formId + "/fields");
         }
     }
 })();
