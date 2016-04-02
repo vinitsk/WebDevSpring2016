@@ -30,6 +30,7 @@ module.exports = function (app, userModel) {
     function updateUser(req, res) {
         var user = req.body;
         console.log("updateUser");
+        console.log(user);
         userModel
             .updateUser(req.params.id, user)
             .then(success_callback, error_callback);

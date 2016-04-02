@@ -69,9 +69,12 @@ module.exports = function (User) {
     }
 
     function updateUser(userID, user) {
-        return User.findOneAndUpdate(
-            {_id: userID},
-            {$set: mapDBUser(user)});
+        console.log("$$$$$$$$$$$$$$$$$" + userID);
+        console.log(mapDBUser(user));
+        return User.findByIdAndUpdate(
+            {'_id': userID},
+            {$set: mapDBUser(user)},
+            {new: true});
     }
 };
 

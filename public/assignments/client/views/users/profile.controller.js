@@ -5,23 +5,29 @@
 (function () {
     angular
         .module("FormBuilderApp")
-        .controller("ProfileController", ProfileController)
+        .controller("ProfileController", ProfileController);
 
-    function ProfileController(UserService, $scope, $rootScope, $location) {
+    function ProfileController(UserService,  $routeParams, $rootScope, $location) {
+
+        ProfileController = this;
+
+        ProfileController.user = $rootScope.user;
+        ProfileController.usereId = $routeParams.userId;
 
         function inti() {
             if (!$rootScope.user) {
                 $location.url("/home");
             }
-        };
+        }
         inti();
 
         //Event Handlers Decelerations
-        $scope.update = Update;
+        ProfileController.update = Update;
 
         //Event Handlers Implementations
         function Update(user) {
-            UserService.updateUser($rootScope.user._id, user)
+            delete user['_id'];
+            UserService.updateUser(ProfileController.usereId, user)
                 .then(success_callback, error_callback);
             function success_callback(response) {
                 if (response != null) {
@@ -29,7 +35,7 @@
                     console.log(response);
                     $rootScope.user = response.data;
                     //Navigating to the Profile Page of this particular User
-                    $location.url($rootScope.user._id + "/profile");
+                    $location.url(ProfileController.usereId + "/profile");
                 }
             }
 

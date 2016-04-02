@@ -68,6 +68,7 @@
         function updateUser(userId, newUser) {
             var url = "/api/assignment/user/";
             url += userId;
+            console.log(url);
             return $http.put(url, newUser);
         }
     }
