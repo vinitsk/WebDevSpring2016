@@ -21,6 +21,7 @@ module.exports = function (app, fieldModel) {
             console.log(response.fields);
             res.json(response.fields);
         }
+
         function error_callback(err) {
             res.status(400).send(err);
         }
@@ -29,7 +30,7 @@ module.exports = function (app, fieldModel) {
     function getFormField(req, res) {
         console.log("getFormField");
         fieldModel
-            .getFormField(req.params.formId,req.params.fieldId)
+            .getFormField(req.params.formId, req.params.fieldId)
             .then(success_callback, error_callback);
         function success_callback(response) {
             res.json(response);
@@ -46,7 +47,8 @@ module.exports = function (app, fieldModel) {
             .deleteFormField(req.params.formId, req.params.fieldId)
             .then(success_callback, error_callback);
         function success_callback(response) {
-            res.json(response);
+            console.log(response.fields);
+            res.json(response.fields);
         }
 
         function error_callback(error) {
@@ -64,6 +66,7 @@ module.exports = function (app, fieldModel) {
             console.log(response.fields);
             res.json(response.fields);
         }
+
         function error_callback(error) {
             res.status(400).send(error);
         }

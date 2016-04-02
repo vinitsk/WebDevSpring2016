@@ -30,26 +30,15 @@ module.exports = function (Form) {
     }
 
     function deleteFormField(formId, fieldId) {
-        var deferred = q.defer();
-        var fieldFound = false;
-        formLoop:for (var formIndex in data) {
-            if (data[formIndex]._id == formId) {
-                var fields = data[formIndex].fields;
-                fieldLoop:for (var fieldIndex in fields) {
-                    if (fields[fieldIndex]._id == fieldId) {
-                        fieldFound = true;
-                        fields.splice(fieldIndex, 1);
-                        deferred.resolve(fields);
-                        break fieldLoop;
-                    }
-                }
-                break formLoop;
-            }
-        }
-        if (!fieldFound) {
-            deferred.reject("No Match Found.");
-        }
-        return deferred.promise;
+        return Form.findById(formId)
+            .then(
+                function (form) {
+                    form.fields.id(fieldId).remove();
+                    return form.save()
+                },
+                function (err) {
+                    console.log(err);
+                });
     }
 
     function createNewFormField(formId, field) {

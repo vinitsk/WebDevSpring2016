@@ -46,6 +46,7 @@
             function success_callback(response) {
                 if (response != null) {
                     console.log(response);
+                    getFormFields();
                     FieldsController.fields = response.data;
                 }
             }
