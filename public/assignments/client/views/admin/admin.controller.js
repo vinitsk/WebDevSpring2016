@@ -61,8 +61,10 @@
             if (!user || !user._id) {
                 return;
             }
+            var userId = user._id;
+            delete user._id;
             UserService
-                .updateUser(user._id, rolesToArray(user))
+                .updateUser(userId, rolesToArray(user))
                 .then(success_callback, error_callback);
 
             function success_callback(response) {
