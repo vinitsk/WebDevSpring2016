@@ -15,7 +15,9 @@
 
         //Event Handlers Implementations
         function Register(user) {
-
+            if (user.password != user.repeatPassword) {
+                return;
+            }
             UserService
                 .createUser(user)
                 .then(success_callback, error_callback);

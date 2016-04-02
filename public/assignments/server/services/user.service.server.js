@@ -9,13 +9,10 @@ module.exports = function (app, userModel) {
     app.put("/api/assignment/user/:id", updateUser);
     app.delete("/api/assignment/user/:id", deleteUser);
 
-    function deleteUser(res, response) {
+    function deleteUser(req, res) {
         console.log("Delete User");
-        var user = {
-            _id: req.params.id
-        };
         userModel
-            .deleteUserById(user)
+            .deleteUserById(req.params.id)
             .then(success_callback, error_callback);
 
         function success_callback(response) {
@@ -65,7 +62,7 @@ module.exports = function (app, userModel) {
     function findUser(req, res) {
         var credentials = req.body;
         if (req.query.username && req.query.password) {
-            findUserByCredentials(req, res,req.query.username ,req.query.password);
+            findUserByCredentials(req, res, req.query.username, req.query.password);
         } else if (req.query.username) {
             findUserByUsername(req, res, req.query.username);
         }
@@ -107,16 +104,17 @@ module.exports = function (app, userModel) {
     function findUserByCredentials(req, res, username, password) {
         console.log("findUserByCredentials");
         userModel
-            .findUserByCredentials(username,password)
+            .findUserByCredentials(username, password)
             .then(success_callback, error_callback);
 
         function success_callback(response) {
-            if(response){
+            if (response) {
                 res.json(response);
-            }else{
+            } else {
                 res.status(400).send("User Not Found")
             }
         }
+
         function error_callback(error) {
             res.status(400).send(error);
         }
@@ -130,9 +128,9 @@ module.exports = function (app, userModel) {
             .then(success_callback, error_callback);
 
         function success_callback(response) {
-            if(response){
+            if (response) {
                 res.json(response);
-            }else{
+            } else {
                 res.status(400).send("User Not Found")
             }
         }

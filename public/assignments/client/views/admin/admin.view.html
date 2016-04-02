@@ -19,14 +19,25 @@
                 <tbody>
                 <tr>
                     <form class="form-inline">
-                        <td><input type="text" class="form-control" placeholder="Username"/></td>
-                        <td><input type="password" class="form-control" placeholder="Password"/></td>
-                        <td><input type="text" class="form-control" placeholder="Role"/></td>
+                        <td><input type="text"
+                                   class="form-control"
+                                   placeholder="Username"
+                                   ng-model="model.new_user.username"/></td>
+                        <td><input type="password"
+                                   class="form-control"
+                                   placeholder="Password"
+                                   ng-model="model.new_user.password"/></td>
+                        <td><input type="text"
+                                   class="form-control"
+                                   placeholder="Role"
+                                   ng-model="model.new_user.roles"/></td>
                         <td class="no-wrap">
-                            <a href="#" class="btn btn-warning btn-sm">
+                            <a ng-click="model.addNewUser(model.new_user)"
+                               class="btn btn-warning btn-sm">
                                 <span class="glyphicon glyphicon-plus"></span>
                             </a>
-                            <a href="#" class="btn btn-success btn-sm">
+                            <a href="#"
+                               class="btn btn-success btn-sm">
                                 <span class="glyphicon glyphicon-ok"></span>
                             </a>
                         </td>
@@ -37,10 +48,12 @@
                     <td></td>
                     <td>{{user.roles.join(' | ')}}</td>
                     <td class="no-wrap">
-                        <a href="#" class="btn btn-danger btn-sm">
+                        <a ng-click="model.deleteUser(user._id)"
+                           class="btn btn-danger btn-sm">
                             <span class="glyphicon glyphicon-trash"></span>
                         </a>
-                        <a href="#" class="btn btn-primary btn-sm">
+                        <a href="#"
+                           class="btn btn-primary btn-sm">
                             <span class="glyphicon glyphicon-edit"></span>
                         </a>
                     </td>

@@ -25,8 +25,8 @@
                     ng-class="{active: $location.url() == '/'+user._id+'/profile'}"><a
                         href={{'#/'+user._id+'/profile'}}>Profile</a></li>
                 <li ng-show="user && user.roles.indexOf('admin') > -1"
-                    ng-class="{active: $location.url() == '/admin'}">
-                    <a href="#/admin">Admin</a></li>
+                    ng-class="{active: $location.url() == '/'+user._id+'/admin'}">
+                    <a href="{{'#/'+user._id+'/admin'}}">Admin</a></li>
                 <li ng-show="user"
                     ng-class="{active: $location.url() == '/'+user._id+'/forms'}"><a
                         href={{'#/'+user._id+'/forms'}}>Forms</a></li>

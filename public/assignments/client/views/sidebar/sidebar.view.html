@@ -10,8 +10,8 @@
             </a>
         </li>
         <li ng-show="user && user.roles.indexOf('admin') > -1"
-            ng-class="{active: $location.url() == '/admin'}">
-            <a href="#/admin">Admin
+            ng-class="{active: $location.url() == '/'+user._id+'/admin'}">
+            <a href="{{'#/'+user._id+'/admin'}}">Admin
             </a>
         </li>
         <li ng-show="user"

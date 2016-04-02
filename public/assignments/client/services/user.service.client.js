@@ -33,8 +33,9 @@
         //findAllUsers(callback)
         //Accepts parameter callback function
         //Calls back with array of all u
-        function findAllUsers(callback) {
-            callback(current_users);
+        function findAllUsers() {
+            var url = "/api/assignment/user";
+            return $http.get(url);
         }
 
         //Accepts parameters user object and callback function
@@ -42,10 +43,8 @@
         //Adds the new user to local array of users
         //Calls back with new user
         function createUser(user) {
-            if (user.password == user.repeatPassword) {
-                var url = "/api/assignment/user";
-                return $http.post(url, user);
-            }
+            var url = "/api/assignment/user";
+            return $http.post(url, user);
         }
 
         //Accepts parameters user id and callback function

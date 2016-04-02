@@ -15,7 +15,7 @@
                 templateUrl: "views/home/home.view.html",
                 controller: "HomeController"
             })
-            .when("/admin", {
+            .when("/:userId/admin", {
                 templateUrl: "views/admin/admin.view.html",
                 controller: "AdminController",
                 controllerAs: "model"
