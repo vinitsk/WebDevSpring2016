@@ -13,78 +13,29 @@ module.exports = function (User, q) {
     };
     return api;
 
-    function findUserById(user) {
-        var deferred = q.defer();
-        User.findOne(
-            mapDBUser(user), function (err, doc) {
-                if (err) {
-                    console.log("Error in findUserById");
-                    console.log(err);
-                    deferred.reject(err);
-                } else {
-                    console.log("User Found");
-                    deferred.resolve(doc);
-                }
-            }
-        );
-        return deferred.promise;
+    function findUserById(userId) {
+        return User.findById(userId);
     }
 
-    function findUserByUsername(user) {
-        var deferred = q.defer();
-        User.findOne(
-            mapDBUser(user), function (err, doc) {
-                if (err) {
-                    console.log("Error in findUserByUsername");
-                    console.log(err);
-                    deferred.reject(err);
-                } else {
-                    console.log("User Found");
-                    deferred.resolve(doc);
-                }
-            }
-        );
-        return deferred.promise;
+    function findUserByUsername(username) {
+        var user = {'username': username};
+        return User.findOne(user);
     }
 
-    function findUserByCredentials(credentials) {
-        var deferred = q.defer();
-        User.findOne(
-            mapDBUser(credentials), function (err, doc) {
-                if (err) {
-                    console.log("Error in findUserByCredentials");
-                    console.log(err);
-                    deferred.reject(err);
-                } else {
-                    console.log("User Found");
-                    console.log(doc);
-                    deferred.resolve(doc);
-                }
-            }
-        );
-        return deferred.promise;
+    function findUserByCredentials(username, password) {
+        var user = {
+            'username': username,
+            'password': password
+        };
+        return User.findOne(user);
     }
 
     function findAllUsers() {
-        // use q to defer the response
-        var deferred = q.defer();
-        deferred.resolve(data);
-
-        // return a promise
-        return deferred.promise;
+        return User.find({});
     }
 
     function createUser(user) {
-        var deferred = q.defer();
-        User.create(mapDBUser(user), function (err, doc) {
-            if (err) {
-                console.log(err);
-                deferred.reject(err);
-            } else {
-                deferred.resolve(doc);
-            }
-        });
-        return deferred.promise;
+        return User.create(mapDBUser(user));
     }
 
     function mapDBUser(user) {
@@ -113,41 +64,16 @@ module.exports = function (User, q) {
         return new_user;
     }
 
-    function deleteUserById(user) {
-        var deferred = q.defer();
-        User.delete(
-            mapDBUser(user), function (err, doc) {
-                if (err) {
-                    console.log("Error in findUserByCredentials");
-                    console.log(err);
-                    deferred.reject(err);
-                } else {
-                    console.log("User Found");
-                    console.log(doc);
-                    deferred.resolve(doc);
-                }
-            }
-        );
-        return deferred.promise;
+    function deleteUserById(userdId) {
+        return User.findByIdAndRemove(userId);
     }
 
     function updateUser(userID, user) {
-        var deferred = q.defer();
-        User.findOneAndUpdate(
+        return User.findOneAndUpdate(
             {_id: userID},
             {$set: mapDBUser(user)},
-            {new: true},
-            function (err, doc) {
-                if (err) {
-                    console.log("Error in updateUser");
-                    console.log(err);
-                    deferred.reject(err);
-                } else {
-                    console.log(doc);
-                    deferred.resolve(doc);
-                }
-            });
-        return deferred.promise;
+            {new: true});
     }
+
 };
 

@@ -45,11 +45,8 @@ module.exports = function (app, userModel) {
 
     function findUserById(req, res) {
         console.log("findUserById");
-        var user = {
-            username: req.params.id
-        };
         userModel
-            .findUserById(user)
+            .findUserById(req.params.id)
             .then(success_callback, error_callback);
 
         function success_callback(response) {
@@ -65,16 +62,9 @@ module.exports = function (app, userModel) {
     function findUser(req, res) {
         var credentials = req.body;
         if (req.query.username && req.query.password) {
-            var credentials = {
-                username: req.query.username,
-                password: req.query.password
-            };
-            findUserByCredentials(req, res, credentials);
+            findUserByCredentials(req, res,req.query.username ,req.query.password);
         } else if (req.query.username) {
-            var user = {
-                username: req.query.username
-            };
-            findUserByUsername(req, res, user);
+            findUserByUsername(req, res, req.query.username);
         }
         else {
             findAllUsers(req, res)
@@ -111,16 +101,19 @@ module.exports = function (app, userModel) {
         }
     }
 
-    function findUserByCredentials(req, res, credentials) {
+    function findUserByCredentials(req, res, username, password) {
         console.log("findUserByCredentials");
         userModel
-            .findUserByCredentials(credentials)
+            .findUserByCredentials(username,password)
             .then(success_callback, error_callback);
 
         function success_callback(response) {
-            res.json(response);
+            if(response){
+                res.json(response);
+            }else{
+                res.status(400).send("User Not Found")
+            }
         }
-
         function error_callback(error) {
             res.status(400).send(error);
         }
@@ -134,7 +127,11 @@ module.exports = function (app, userModel) {
             .then(success_callback, error_callback);
 
         function success_callback(response) {
-            res.json(response);
+            if(response){
+                res.json(response);
+            }else{
+                res.status(400).send("User Not Found")
+            }
         }
 
         function error_callback(error) {
