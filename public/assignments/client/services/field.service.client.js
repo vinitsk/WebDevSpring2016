@@ -46,8 +46,8 @@
         }
 
         function sortFields(formId, startIndex, endIndex) {
-            var url = "/api/assignment/form/" + formId + "/fields";
-            return $http.put(url, {'startIndex': startIndex, 'endIndex': endIndex});
+            var url = "/api/assignment/form/" + formId + "/fields?startIndex=" + startIndex + "&endIndex=" + endIndex;
+            return $http.put(url);
         }
     }
 })();

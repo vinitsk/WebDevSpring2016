@@ -37,9 +37,9 @@
                 },
                 stop: function (e, ui) {
                     FieldsController.sort_end = ui.item.index();
-                    if (FieldsController.sort_start >= FieldsController.sort_end) {
-                        FieldsController.sort_start--;
-                    }
+                    //if (FieldsController.sort_start >= FieldsController.sort_end) {
+                    //    FieldsController.sort_start--;
+                    //}
                     updateSortOrder(FieldsController.sort_start, FieldsController.sort_end);
                     FieldsController.sort_start = 0;
                     FieldsController.sort_end = 0;
@@ -60,8 +60,8 @@
             function success_callback(response) {
                 if (response != null) {
                     console.log(response);
-                    getFormFields();
-                    //FieldsController.fields = response.data;
+                    //getFormFields();
+                    FieldsController.fields = response.data;
                 }
             }
 
