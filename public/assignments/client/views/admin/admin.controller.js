@@ -15,6 +15,12 @@
         AdminController.updateUser = updateUser;
         AdminController.deleteUser = deleteUser;
         AdminController.selectUser = selectUser;
+        AdminController.new_user = {
+            '_id': '',
+            'username': '',
+            'password': '',
+            'roles': ''
+        };
 
 
         function init() {
@@ -33,6 +39,7 @@
             if (!user) {
                 return;
             }
+            delete user._id;
             UserService
                 .createUser(rolesToArray(user))
                 .then(success_callback, error_callback);
@@ -47,9 +54,30 @@
             }
         }
 
-        function updateUser() {
+        function updateUser(user) {
             if (!$rootScope.user) {
                 $location.url("/home");
+            }
+            if (!user || !user._id) {
+                return;
+            }
+            UserService
+                .updateUser(user._id, rolesToArray(user))
+                .then(success_callback, error_callback);
+
+            function success_callback(response) {
+                console.log(response.data);
+                AdminController.new_user = {
+                    '_id': '',
+                    'username': '',
+                    'password': '',
+                    'roles': ''
+                };
+                populateUsers();
+            }
+
+            function error_callback(error) {
+                console.log(error);
             }
         }
 
@@ -74,10 +102,21 @@
             }
         }
 
-        function selectUser() {
+        function selectUser(user) {
             if (!$rootScope.user) {
                 $location.url("/home");
             }
+            if (!user) {
+                return;
+            }
+            var selectedUser = rolesToString(angular.copy(user));
+            AdminController.new_user = {
+                '_id': selectedUser._id,
+                'username': selectedUser.username,
+                'password': selectedUser.password,
+                'roles': selectedUser.roles
+            };
+
         }
 
         function populateUsers() {
