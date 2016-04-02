@@ -8,7 +8,7 @@ module.exports = function (Form) {
         deleteFormField: deleteFormField,
         createNewFormField: createNewFormField,
         updateFormField: updateFormField,
-        updateAllFormFields: updateAllFormFields
+        sortFormFields: sortFormFields
     };
     return api;
 
@@ -59,7 +59,7 @@ module.exports = function (Form) {
             .findById(formId)
             .then(
                 function (form) {
-                    var field = form.fields.id(newField._id);
+                    var field = form.fields.id(fieldId);
                     field.label = newField.label;
                     field.type = newField.type;
                     field.placeholder = newField.placeholder;
@@ -71,30 +71,17 @@ module.exports = function (Form) {
                 });
     }
 
-    function updateAllFormFields(formId, newFields) {
-        var deferred = q.defer();
-        var fieldFound = false;
-        formLoop:for (var formIndex in data) {
-            if (data[formIndex]._id == formId) {
-                data[formIndex].fields = newFields;
-                fieldFound = true;
-                deferred.resolve(data[formIndex].fields);
-                break formLoop;
-            }
-        }
-        if (!fieldFound) {
-            deferred.reject("No Match Found.");
-        }
-        return deferred.promise;
-    }
-
-    function findUserForms(userId) {
-        var userForms = [];
-        for (var formIndex in data) {
-            if (data[formIndex].userId == userId) {
-                userForms.push(data[formIndex]);
-            }
-        }
-        return userForms;
+    function sortFormFields(formId, startIndex, endIndex) {
+        return Form
+            .findById(formId)
+            .then(
+                function (form) {
+                    form.fields.splice(endIndex, 0, form.fields.splice(startIndex, 1)[0]);
+                    form.markModified("fields");
+                    return form.save();
+                },
+                function (err) {
+                    console.log(err);
+                });
     }
 };

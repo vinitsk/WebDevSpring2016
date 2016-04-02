@@ -9,7 +9,7 @@ module.exports = function (app, fieldModel) {
     app.delete("/api/assignment/form/:formId/field/:fieldId", deleteFormField);
     app.post("/api/assignment/form/:formId/field", createNewFormField);
     app.put("/api/assignment/form/:formId/field/:fieldId", updateFormField);
-    app.put("/api/assignment/form/:formId/fields", updateAllFormFields);
+    app.put("/api/assignment/form/:formId/fields", sortFields);
 
 
     function getAllFormFields(req, res) {
@@ -88,20 +88,25 @@ module.exports = function (app, fieldModel) {
         }
     }
 
-    function updateAllFormFields(req, res) {
-        console.log("updateAllFormFields");
-        var fields = req.body;
-        fieldModel
-            .updateAllFormFields(req.params.formId, fields)
-            .then(success_callback, error_callback);
-        function success_callback(response) {
-            res.json(response);
-        }
+    function sortFields(req, res) {
+        console.log("sortFields");
 
-        function error_callback(error) {
-            res.status(400).send(error);
-        }
+        var formId = req.params.formId;
+        var startIndex = req.query.startIndex;
+        var endIndex = req.query.endIndex;
 
+        if(startIndex && endIndex) {
+            fieldModel
+                .sortFormFields(formId, startIndex, endIndex)
+                .then(success_callback, error_callback);
+            function success_callback(response) {
+                console.log(response.fields);
+                res.json(response.fields);
+            }
+
+            function error_callback(error) {
+                res.status(400).send(error);
+            }
+        }
     }
-
 };

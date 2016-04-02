@@ -16,6 +16,8 @@
         FieldsController.addNewField = addNewField;
         FieldsController.updateField = updateField;
         FieldsController.duplicateField = duplicateField;
+        FieldsController.sort_start = 0;
+        FieldsController.sort_end = 0;
 
         function init() {
             getFormFields();
@@ -30,24 +32,36 @@
 
             FieldsController.sortableOptions = {
                 handle: ".field-move",
-                update: updateSortOrder
+                start: function (e, ui) {
+                    FieldsController.sort_start = ui.item.index();
+                },
+                stop: function (e, ui) {
+                    FieldsController.sort_end = ui.item.index();
+                    if (FieldsController.sort_start >= FieldsController.sort_end) {
+                        FieldsController.sort_start--;
+                    }
+                    updateSortOrder(FieldsController.sort_start, FieldsController.sort_end);
+                    FieldsController.sort_start = 0;
+                    FieldsController.sort_end = 0;
+                }
+
             };
         }
 
         init();
 
-        function updateSortOrder() {
+        function updateSortOrder(start, end) {
             if (!FieldsController.fields) {
                 return
             }
             FieldService
-                .updateAllFields($routeParams.formId, FieldsController.fields)
+                .sortFields($routeParams.formId, start, end)
                 .then(success_callback, error_callback);
             function success_callback(response) {
                 if (response != null) {
                     console.log(response);
                     getFormFields();
-                    FieldsController.fields = response.data;
+                    //FieldsController.fields = response.data;
                 }
             }
 
@@ -179,6 +193,7 @@
                     FieldsController.fields = response.data;
                 }
             }
+
             FieldService
                 .createFieldForForm($rootScope.form._id, newfield)
                 .then(success_callback, error_callback);

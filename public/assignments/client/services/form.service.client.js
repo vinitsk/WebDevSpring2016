@@ -10,16 +10,6 @@
 
     function FormService($http) {
 
-        var current_forms = [
-            {"_id": "000", "title": "Contacts", "userId": 123},
-            {"_id": "010", "title": "ToDo", "userId": 123},
-            {"_id": "020", "title": "CDs", "userId": 234},
-            {"_id": "050", "title": "REGISTRATION", "userId": 123},
-            {"_id": "243", "title": "NEW USER", "userId": 123},
-            {"_id": "543", "title": "NEW PRODUCT", "userId": 123},
-            {"_id": "745", "title": "NEW CATALOG", "userId": 123},
-        ];
-
         var api = {
             createFormForUser: createFormForUser,
             findAllFormsForUser: findAllFormsForUser,

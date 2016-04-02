@@ -15,7 +15,7 @@
             getFieldForForm: getFieldForForm,
             deleteFieldFromForm: deleteFieldFromForm,
             updateField: updateField,
-            updateAllFields : updateAllFields
+            sortFields: sortFields
         };
         return api;
 
@@ -45,9 +45,9 @@
 
         }
 
-        function updateAllFields(formId, fields){
+        function sortFields(formId, startIndex, endIndex) {
             var url = "/api/assignment/form/" + formId + "/fields";
-            return $http.put(url, fields);
+            return $http.put(url, {'startIndex': startIndex, 'endIndex': endIndex});
         }
     }
 })();
