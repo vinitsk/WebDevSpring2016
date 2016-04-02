@@ -35,10 +35,12 @@ module.exports = function (app, userModel) {
             .then(success_callback, error_callback);
 
         function success_callback(response) {
+            console.log(response);
             res.json(response);
         }
 
         function error_callback(error) {
+            console.log(error);
             res.status(400).send(error);
         }
     }
