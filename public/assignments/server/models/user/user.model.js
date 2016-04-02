@@ -71,9 +71,7 @@ module.exports = function (User) {
     function updateUser(userID, user) {
         return User.findOneAndUpdate(
             {_id: userID},
-            {$set: mapDBUser(user)},
-            {new: true});
+            {$set: mapDBUser(user)});
     }
-
 };
 
