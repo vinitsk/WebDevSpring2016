@@ -17,7 +17,7 @@ app.use(express.static(__dirname + '/public'));
 app.use(cookieParser());
 
 // configure session support
-app.use(session({ secret: process.env.MEAN_SESSION_SECRET}));
+app.use(session({secret: process.env.MEAN_SESSION_SECRET}));
 
 // initialize passport and session support
 app.use(passport.initialize());
@@ -40,11 +40,12 @@ if (process.env.OPENSHIFT_MONGODB_DB_PASSWORD) {
         process.env.OPENSHIFT_APP_NAME;
 }
 
-    // connect to the database
-    var db = mongoose.connect(connectionString);
+// connect to the database
+var db = mongoose.connect(connectionString);
+
+require("./public/assignments/server/app.js")(app, mongoose, passport);
+app.listen(port, ipaddress);
+
 app.get('/hello', function (req, res) {
     res.send('hello world');
 });
-
-require("./public/assignments/server/app.js")(app,mongoose,passport);
-app.listen(port, ipaddress);

@@ -1,6 +1,9 @@
 /**
  * Created by Bhanu on 18/03/2016.
  */
+/*Local Strategy*/
+var LocalStrategy = require('passport-local').Strategy;
+
 module.exports = function (app, userModel, passport) {
 
     app.get("/api/assignment/user", findUser);
@@ -8,6 +11,48 @@ module.exports = function (app, userModel, passport) {
     app.get("/api/assignment/user/:id", findUserById);
     app.put("/api/assignment/user/:id", updateUser);
     app.delete("/api/assignment/user/:id", deleteUser);
+
+    app.post('/api/login', passport.authenticate('local'), login);
+    app.post('/api/logout', logout);
+    app.get('/api/loggedin', loggedin);
+
+    passport.use(new LocalStrategy(localStrategy));
+    passport.serializeUser(serializeUser);
+    passport.deserializeUser(deserializeUser);
+
+
+    function localStrategy(username, password, done) {
+        userModel.findUserByCredentials(username, password)
+            .then(function (user) {
+                if (!user) {
+                    return done(null, false);
+                }
+                delete user.password;
+                return done(null, user);
+
+            }, function (err) {
+                console.log(err);
+                if (err) {
+                    return done(err, false);
+                }
+            });
+    }
+
+    function serializeUser(user, done) {
+        delete user.password;
+        done(null, user);
+    }
+
+    function deserializeUser(user, done) {
+        userModel.findUserById(user._id)
+            .then(function (user) {
+                delete user.password;
+                done(null, user);
+            }, function () {
+                done(err, null);
+            });
+    }
+
 
     function deleteUser(req, res) {
         console.log("Delete User");
@@ -23,6 +68,22 @@ module.exports = function (app, userModel, passport) {
             res.status(400).send(error);
         }
     }
+
+    function loggedin(req, res) {
+        res.send(req.isAuthenticated() ? req.user : '0');
+    }
+
+    function logout(req, res) {
+        req.logOut();
+        res.send(200);
+    }
+
+    function login(req, res) {
+        var user = req.user;
+        //delete user.password;
+        res.json(user);
+    }
+
 
     function updateUser(req, res) {
         var user = req.body;
