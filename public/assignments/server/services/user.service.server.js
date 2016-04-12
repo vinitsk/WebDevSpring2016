@@ -1,7 +1,7 @@
 /**
  * Created by Bhanu on 18/03/2016.
  */
-module.exports = function (app, userModel) {
+module.exports = function (app, userModel, passport) {
 
     app.get("/api/assignment/user", findUser);
     app.post("/api/assignment/user", createUser);

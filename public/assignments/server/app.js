@@ -1,7 +1,4 @@
-module.exports = function (app) {
-
-    /*Load Mongoose*/
-    var mongoose = require("mongoose");
+module.exports = function (app,mongoose,passport) {
 
     /*DB Models*/
     var UserSchema = require("./models/user/user.schema.server.js")(mongoose);
@@ -18,7 +15,7 @@ module.exports = function (app) {
     var fieldModel = require("./models/field/field.model.js")(Form);
 
     /*Server Services*/
-    require("./services/user.service.server.js")(app, userModel);
+    require("./services/user.service.server.js")(app, userModel, passport);
     require("./services/form.service.server.js")(app, formModel);
     require("./services/field.service.server.js")(app, fieldModel);
 

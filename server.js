@@ -5,11 +5,24 @@ var multer = require('multer');
 var cookieParser = require('cookie-parser');
 var session = require('express-session');
 var mongoose = require("mongoose");
+// load passport module
+var passport = require('passport');
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(multer());
 app.use(express.static(__dirname + '/public'));
+
+// configure cookie parser - needed for oauth
+app.use(cookieParser());
+
+// configure session support
+app.use(session({ secret: process.env.MEAN_SESSION_SECRET}));
+
+// initialize passport and session support
+app.use(passport.initialize());
+app.use(passport.session());
+
 
 var ipaddress = process.env.OPENSHIFT_NODEJS_IP || '127.0.0.1';
 var port = process.env.OPENSHIFT_NODEJS_PORT || 3000;
@@ -27,11 +40,11 @@ if (process.env.OPENSHIFT_MONGODB_DB_PASSWORD) {
         process.env.OPENSHIFT_APP_NAME;
 }
 
-// connect to the database
-var db = mongoose.connect(connectionString);
+    // connect to the database
+    var db = mongoose.connect(connectionString);
 app.get('/hello', function (req, res) {
     res.send('hello world');
 });
 
-require("./public/assignments/server/app.js")(app);
+require("./public/assignments/server/app.js")(app,mongoose,passport);
 app.listen(port, ipaddress);
