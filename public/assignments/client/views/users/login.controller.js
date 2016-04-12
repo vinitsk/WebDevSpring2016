@@ -7,7 +7,7 @@
         .module("FormBuilderApp")
         .controller("LoginController", LoginController)
 
-    function LoginController(UserService, $location, $rootScope) {
+    function LoginController(SecurityService, $location, $rootScope) {
 
         var LoginController = this;
 
@@ -16,8 +16,8 @@
 
         //Event Handlers Implementations
         function Login(credentials) {
-            UserService
-                .findUserByCredentials(credentials)
+            SecurityService
+                .login(credentials)
                 .then(success_callback, error_callback);
 
             function success_callback(response) {
@@ -32,6 +32,7 @@
 
             function error_callback(error) {
                 console.log(error);
+                $rootScope.errorMessage = "Unable To Login. Please try again."
             }
         };
 

@@ -17,7 +17,11 @@ app.use(express.static(__dirname + '/public'));
 app.use(cookieParser());
 
 // configure session support
-app.use(session({secret: process.env.MEAN_SESSION_SECRET}));
+//app.use(session({secret: process.env.MEAN_SESSION_SECRET}));
+app.use(session({secret: 'ILOVEMEAN',
+    saveUninitialized: true,
+    resave: true}));
+
 
 // initialize passport and session support
 app.use(passport.initialize());
