@@ -229,14 +229,18 @@ module.exports = function (app, userModel, passport) {
     }
 
     function register(req, res) {
+        console.log("Register New User");
         var user = req.body;
+        console.log(user);
         userModel
             .findUserByUsername(user.username)
             .then(
                 function (response) {
                     if (response) {
+                        console.log("User Found.");
                         res.json("User already exist. Please login.");
                     } else {
+                        console.log("User not found. Creating new user.");
                         // encrypt the password when registering
                         user.password = bcrypt.hashSync(user.password);
                         return userModel.createUser(user);
