@@ -13,10 +13,10 @@ module.exports = function (app, userModel, passport) {
     app.put("/api/assignment/user/:id", updateUser);
     app.delete("/api/assignment/user/:id", deleteUser);
 
-    app.post('/api/login', passport.authenticate('local'), login);
-    app.post('/api/logout', logout);
-    app.get('/api/loggedin', loggedin);
-    app.post('/api/register', register);
+    app.post('/api/assignment/login', passport.authenticate('local'), login);
+    app.post('/api/assignment/logout', logout);
+    app.get('/api/assignment/loggedin', loggedin);
+    app.post('/api/assignment/register', register);
 
     passport.use(new LocalStrategy(localStrategy));
     passport.serializeUser(serializeUser);
@@ -24,20 +24,28 @@ module.exports = function (app, userModel, passport) {
 
 
     function localStrategy(username, password, done) {
-        userModel.findUserByCredentials(username, password)
-            .then(function (user) {
-                if (!user) {
-                    return done(null, false);
+        console.log("localStrategy");
+        userModel
+            .findUserByUsername(username)
+            .then(
+                function (user) {
+                    console.log(user);
+                    // if the user exists, compare passwords with bcrypt.compareSync
+                    if (user && bcrypt.compareSync(password, user.password)) {
+                        console.log("Password matched");
+                        return done(null, user);
+                    } else {
+                        console.log("Password do not match");
+                        return done(null, false);
+                    }
+                },
+                function (err) {
+                    console.log(err);
+                    if (err) {
+                        return done(err);
+                    }
                 }
-                delete user.password;
-                return done(null, user);
-
-            }, function (err) {
-                console.log(err);
-                if (err) {
-                    return done(err, false);
-                }
-            });
+            );
     }
 
     function serializeUser(user, done) {
@@ -82,7 +90,7 @@ module.exports = function (app, userModel, passport) {
 
     function login(req, res) {
         var user = req.user;
-        //delete user.password;
+        delete user.password;
         res.json(user);
     }
 
@@ -91,6 +99,9 @@ module.exports = function (app, userModel, passport) {
         var user = req.body;
         console.log("updateUser");
         console.log(user);
+        if (user.password) {
+            user.password = bcrypt.hashSync(user.password);
+        }
         userModel
             .updateUser(req.params.id, user)
             .then(success_callback, error_callback);
@@ -154,7 +165,7 @@ module.exports = function (app, userModel, passport) {
         userModel
             .findUserByUsername(user.username)
             .then(
-                function (user) {
+                function (response) {
                     if (response) {
                         res.json("User already exist. Please login.");
                     } else {
@@ -163,7 +174,7 @@ module.exports = function (app, userModel, passport) {
                         return userModel.createUser(user);
                     }
                 },
-                function (err) {
+                function (err) {a
                     res.status(400).send(err);
                 }
             )
@@ -172,6 +183,7 @@ module.exports = function (app, userModel, passport) {
             }, function (err) {
                 console.log(err)
             });
+
     }
 
     function findUserByCredentials(req, res, username, password) {
@@ -239,6 +251,7 @@ module.exports = function (app, userModel, passport) {
                             if (err) {
                                 res.status(400).send(err);
                             } else {
+                                delete user.password;
                                 res.json(user);
                             }
                         });

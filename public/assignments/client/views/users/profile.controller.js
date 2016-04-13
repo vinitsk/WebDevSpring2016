@@ -26,7 +26,7 @@
 
         //Event Handlers Implementations
         function Update(user) {
-            delete user['_id'];
+            delete user._id;
             UserService.updateUser(ProfileController.usereId, user)
                 .then(success_callback, error_callback);
             function success_callback(response) {

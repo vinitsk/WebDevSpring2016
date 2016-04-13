@@ -57,7 +57,7 @@
     var checkLoggedin = function ($q, $timeout, $http, $location, $rootScope) {
         var deferred = $q.defer();
 
-        $http.get('/api/loggedin').success(function (user) {
+        $http.get('/api/assignment/loggedin').success(function (user) {
             $rootScope.errorMessage = null;
             // User is Authenticated
             if (user !== '0') {

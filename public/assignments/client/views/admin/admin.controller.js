@@ -46,6 +46,12 @@
 
             function success_callback(response) {
                 console.log(response.data);
+                AdminController.new_user = {
+                    '_id': '',
+                    'username': '',
+                    'password': '',
+                    'roles': ''
+                };
                 populateUsers();
             }
 

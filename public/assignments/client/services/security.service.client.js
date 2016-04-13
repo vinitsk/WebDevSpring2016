@@ -12,16 +12,16 @@
         };
         return api;
 
-        function logout(user) {
-            return $http.post("/api/logout");
+        function logout() {
+            return $http.post("/api/assignment/logout");
         }
 
         function login(user) {
-            return $http.post("/api/login", user);
+            return $http.post("/api/assignment/login", user);
         }
 
         function register(user) {
-            return $http.post("/api/register", user);
+            return $http.post("/api/assignment/register", user);
         }
 
     }
