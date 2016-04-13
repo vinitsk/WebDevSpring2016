@@ -2,7 +2,8 @@
  * Created by Bhanu on 18/03/2016.
  */
 /*Local Strategy*/
-var LocalStrategy = require('passport-local').Strategy;
+var LocalStrategy = require('passport-local').Strategy,
+    bcrypt = require("bcrypt-nodejs");
 
 module.exports = function (app, userModel, passport) {
 
@@ -15,6 +16,7 @@ module.exports = function (app, userModel, passport) {
     app.post('/api/login', passport.authenticate('local'), login);
     app.post('/api/logout', logout);
     app.get('/api/loggedin', loggedin);
+    app.post('/api/register', register);
 
     passport.use(new LocalStrategy(localStrategy));
     passport.serializeUser(serializeUser);
@@ -150,16 +152,26 @@ module.exports = function (app, userModel, passport) {
         console.log("createUser");
         var user = req.body;
         userModel
-            .createUser(user)
-            .then(success_callback, error_callback);
-
-        function success_callback(response) {
-            res.json(response);
-        }
-
-        function error_callback(error) {
-            res.status(400).send(error);
-        }
+            .findUserByUsername(user.username)
+            .then(
+                function (user) {
+                    if (response) {
+                        res.json("User already exist. Please login.");
+                    } else {
+                        // encrypt the password when registering
+                        user.password = bcrypt.hashSync(user.password);
+                        return userModel.createUser(user);
+                    }
+                },
+                function (err) {
+                    res.status(400).send(err);
+                }
+            )
+            .then(function (user) {
+                res.json(user);
+            }, function (err) {
+                console.log(err)
+            });
     }
 
     function findUserByCredentials(req, res, username, password) {
@@ -200,5 +212,41 @@ module.exports = function (app, userModel, passport) {
             res.status(400).send(error);
         }
 
+    }
+
+    function register(req, res) {
+        var user = req.body;
+        userModel
+            .findUserByUsername(user.username)
+            .then(
+                function (response) {
+                    if (response) {
+                        res.json("User already exist. Please login.");
+                    } else {
+                        // encrypt the password when registering
+                        user.password = bcrypt.hashSync(user.password);
+                        return userModel.createUser(user);
+                    }
+                },
+                function (err) {
+                    res.status(400).send(err);
+                }
+            )
+            .then(
+                function (user) {
+                    if (user) {
+                        req.login(user, function (err) {
+                            if (err) {
+                                res.status(400).send(err);
+                            } else {
+                                res.json(user);
+                            }
+                        });
+                    }
+                },
+                function (err) {
+                    res.status(400).send(err);
+                }
+            );
     }
 };

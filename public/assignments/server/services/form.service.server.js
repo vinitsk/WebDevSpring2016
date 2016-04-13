@@ -33,7 +33,7 @@ module.exports = function (app, formModel) {
             .then(success_callback, error_callback);
 
         function success_callback(response) {
-            if (respnse) {
+            if (response) {
                 res.json(response);
             } else {
                 res.status(400).send("Not Found");

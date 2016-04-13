@@ -7,7 +7,7 @@
         .module("FormBuilderApp")
         .controller("HeaderController", HeaderController)
 
-    function HeaderController($location, $scope, $rootScope) {
+    function HeaderController($location, $scope, $rootScope, SecurityService) {
 
         $scope.$location = $location;
 
@@ -16,8 +16,15 @@
 
         //Event Handler Implementation
         function logout() {
-            delete $rootScope.user;
-            $location.url("/home");
+            SecurityService.logout()
+                .then(function (response) {
+                    console.log(response);
+                    delete $rootScope.user;
+                    $location.url("/home");
+                }, function (err) {
+                    console.log(err)
+                });
+
         };
     };
 })();

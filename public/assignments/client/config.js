@@ -73,7 +73,6 @@
                 $location.url('/');
             }
         });
-
         return deferred.promise;
     };
 })();

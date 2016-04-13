@@ -15,7 +15,8 @@
             </a>
         </li>
         <li ng-show="user"
-            ng-class="{active: $location.url() == '/'+user._id+'/forms'}">
+            ng-class="{active: (($location.url().indexOf('/forms') > -1)
+                    || ($location.url().indexOf('/fields') > -1))}">
             <a href={{'#/'+user._id+'/forms'}}>Forms
             </a>
         </li>

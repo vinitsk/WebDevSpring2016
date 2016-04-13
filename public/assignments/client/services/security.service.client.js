@@ -23,5 +23,6 @@
         function register(user) {
             return $http.post("/api/register", user);
         }
+
     }
 })();

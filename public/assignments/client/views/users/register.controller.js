@@ -7,7 +7,7 @@
         .module("FormBuilderApp")
         .controller("RegisterController", RegisterController)
 
-    function RegisterController(UserService, $rootScope, $location) {
+    function RegisterController(SecurityService, $rootScope, $location) {
 
         var RegisterController = this;
         //Event Handlers Decelerations
@@ -16,18 +16,26 @@
         //Event Handlers Implementations
         function Register(user) {
             if (user.password != user.repeatPassword) {
+                console.log("Password Do not match!!");
+                $rootScope.errorMessage = "Password Do not match!!";
                 return;
             }
-            UserService
-                .createUser(user)
+            console.log(user);
+            SecurityService
+                .register(user)
                 .then(success_callback, error_callback);
             function success_callback(response) {
                 if (response != null) {
                     //Storing the user in the Root Scope
                     console.log(response);
-                    $rootScope.user = response.data;
-                    //Navigating to the Profile Page of this particular User
-                    $location.url($rootScope.user._id + "/profile");
+                    if (response.data == "User already exist. Please login.") {
+                        $rootScope.errorMessage = response.data
+                    } else {
+                        $rootScope.user = response.data;
+                        //Navigating to the Profile Page of this particular User
+                        $location.url($rootScope.user._id + "/profile");
+                    }
+
                 }
             }
 

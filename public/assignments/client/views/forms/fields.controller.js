@@ -7,7 +7,7 @@
         .module("FormBuilderApp")
         .controller("FieldsController", FieldsController);
 
-    function FieldsController(FieldService, $routeParams, $rootScope, $location) {
+    function FieldsController(FieldService, FormService, $routeParams, $rootScope, $location) {
 
         var FieldsController = this;
 
@@ -20,6 +20,11 @@
         FieldsController.sort_end = 0;
 
         function init() {
+            console.log("Form"+ $rootScope.form);
+            if (!$rootScope.form) {
+                console.log("Getting Form");
+                getForm();
+            }
             getFormFields();
             FieldsController.fieldType = [
                 {"label": "Single Line Text Field", "value": "TEXT"},
@@ -50,6 +55,17 @@
 
         init();
 
+        function getForm() {
+            FormService.getFormById($routeParams.formId)
+                .then(function (response) {
+                    console.log(response.data);
+                    $rootScope.form = response.data;
+                }, function (err) {
+                    console.log(err);
+                    $rootScope.errorMessage = 'Unable to retrieve Form.';
+                });
+        }
+
         function updateSortOrder(start, end) {
             if (!FieldsController.fields) {
                 return
@@ -76,7 +92,7 @@
                 return;
             }
             FieldService
-                .createFieldForForm($rootScope.form._id, field)
+                .createFieldForForm($routeParams.formId, field)
                 .then(success_callback, error_callback);
             function success_callback(response) {
                 if (response != null) {
@@ -131,11 +147,11 @@
 
 
         function removeField(fieldId) {
-            if (!$rootScope.form._id || !fieldId) {
+            if (!$routeParams.formId || !fieldId) {
                 return;
             }
             FieldService
-                .deleteFieldFromForm($rootScope.form._id, fieldId)
+                .deleteFieldFromForm($routeParams.formId, fieldId)
                 .then(success_callback, error_callback);
             function success_callback(response) {
                 if (response != null) {
@@ -195,7 +211,7 @@
             }
 
             FieldService
-                .createFieldForForm($rootScope.form._id, newfield)
+                .createFieldForForm($routeParams.formId, newfield)
                 .then(success_callback, error_callback);
 
             function error_callback(error) {
