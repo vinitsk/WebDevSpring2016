@@ -12,6 +12,8 @@
                 <tr>
                     <th><span class="glyphicon glyphicon-triangle-bottom">&nbsp;</span>Username</th>
                     <th><span class="glyphicon glyphicon-triangle-bottom">&nbsp;</span>Password</th>
+                    <th><span class="glyphicon glyphicon-triangle-bottom">&nbsp;</span>First Name</th>
+                    <th><span class="glyphicon glyphicon-triangle-bottom">&nbsp;</span>Last Name</th>
                     <th><span class="glyphicon glyphicon-triangle-bottom">&nbsp;</span>Role</th>
                     <th>Action</th>
                 </tr>
@@ -27,6 +29,14 @@
                                    class="form-control"
                                    placeholder="Password"
                                    ng-model="model.new_user.password"/></td>
+                        <td><input type="text"
+                                   class="form-control"
+                                   placeholder="First Name"
+                                   ng-model="model.new_user.firstName"/></td>
+                        <td><input type="text"
+                                   class="form-control"
+                                   placeholder="Last Name"
+                                   ng-model="model.new_user.lastName"/></td>
                         <td><input type="text"
                                    class="form-control"
                                    placeholder="Role"
@@ -46,6 +56,8 @@
                 <tr ng-repeat="user in model.users">
                     <td>{{user.username}}</td>
                     <td></td>
+                    <td>{{user.firstName}}</td>
+                    <td>{{user.lastName}}</td>
                     <td>{{user.roles.join(' | ')}}</td>
                     <td class="no-wrap">
                         <a ng-click="model.deleteUser(user._id)"
@@ -54,7 +66,7 @@
                         </a>
                         <a ng-click="model.selectUser(user)"
                            class="btn btn-primary btn-sm">
-                            <span class="glyphicon glyphicon-edit"></span>
+                            <span class="glyphicon glyphicon-cog"></span>
                         </a>
                     </td>
                 </tr>

@@ -25,6 +25,8 @@ module.exports = function (app, userModel, passport) {
 
     function localStrategy(username, password, done) {
         console.log("localStrategy");
+        console.log(username);
+        console.log(password);
         userModel
             .findUserByUsername(username)
             .then(
@@ -174,7 +176,7 @@ module.exports = function (app, userModel, passport) {
                         return userModel.createUser(user);
                     }
                 },
-                function (err) {a
+                function (err) {
                     res.status(400).send(err);
                 }
             )

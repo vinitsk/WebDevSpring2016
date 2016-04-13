@@ -19,9 +19,10 @@
             '_id': '',
             'username': '',
             'password': '',
+            'firstName': '',
+            'lastName': '',
             'roles': ''
         };
-
 
         function init() {
             if (!$rootScope.user) {
@@ -50,6 +51,8 @@
                     '_id': '',
                     'username': '',
                     'password': '',
+                    'firstName': '',
+                    'lastName': '',
                     'roles': ''
                 };
                 populateUsers();
@@ -79,6 +82,8 @@
                     '_id': '',
                     'username': '',
                     'password': '',
+                    'firstName': '',
+                    'lastName': '',
                     'roles': ''
                 };
                 populateUsers();
@@ -122,7 +127,9 @@
                 '_id': selectedUser._id,
                 'username': selectedUser.username,
                 'password': selectedUser.password,
-                'roles': selectedUser.roles
+                'roles': selectedUser.roles,
+                'firstName': selectedUser.firstName,
+                'lastName': selectedUser.lastName
             };
 
         }
