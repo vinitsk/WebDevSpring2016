@@ -6,7 +6,7 @@
 (function () {
     angular
         .module("FormBuilderApp")
-        .directive("formField", formField)
+        .directive("formField", formField);
 
     function formField($uibModal) {
         return {
