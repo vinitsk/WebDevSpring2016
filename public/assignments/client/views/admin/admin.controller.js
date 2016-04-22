@@ -11,6 +11,9 @@
 
         var AdminController = this;
 
+        AdminController.sortField = 'firstName';
+        AdminController.order = false;
+
         AdminController.addNewUser = addNewUser;
         AdminController.updateUser = updateUser;
         AdminController.deleteUser = deleteUser;
@@ -73,7 +76,7 @@
             var userId = user._id;
             delete user._id;
             UserService
-                .updateUser(userId, rolesToArray(user))
+                .updateUserByAdmin(userId, rolesToArray(user))
                 .then(success_callback, error_callback);
 
             function success_callback(response) {
