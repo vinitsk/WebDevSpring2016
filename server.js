@@ -18,9 +18,11 @@ app.use(cookieParser());
 
 // configure session support
 //app.use(session({secret: process.env.MEAN_SESSION_SECRET}));
-app.use(session({secret: 'ILOVEMEAN',
+app.use(session({
+    secret: process.env.SESSION_SECRET,
     saveUninitialized: true,
-    resave: true}));
+    resave: true
+}));
 
 
 // initialize passport and session support

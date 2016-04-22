@@ -7,11 +7,13 @@ var LocalStrategy = require('passport-local').Strategy,
 
 module.exports = function (app, userModel, passport) {
 
-    app.get("/api/assignment/user", findUser);
-    app.post("/api/assignment/user", createUser);
-    app.get("/api/assignment/user/:id", findUserById);
+    var checkAdmin = isAdmin;
+    app.get("/api/assignment/admin/user", checkAdmin, findUser);
+    app.post("/api/assignment/admin/user", checkAdmin, createUser);
+    app.get("/api/assignment/admin/user/:id", checkAdmin, findUserById);
     app.put("/api/assignment/user/:id", updateUser);
-    app.delete("/api/assignment/user/:id", deleteUser);
+    app.put("/api/assignment/admin/user/:id", checkAdmin, updateUser);
+    app.delete("/api/assignment/admin/user/:id", checkAdmin, deleteUser);
 
     app.post('/api/assignment/login', passport.authenticate('local'), login);
     app.post('/api/assignment/logout', logout);
@@ -136,6 +138,7 @@ module.exports = function (app, userModel, passport) {
 
 
     function findUser(req, res) {
+        console.log("findUser");
         var credentials = req.body;
         if (req.query.username && req.query.password) {
             findUserByCredentials(req, res, req.query.username, req.query.password);
@@ -267,5 +270,17 @@ module.exports = function (app, userModel, passport) {
                     res.status(400).send(err);
                 }
             );
+    }
+
+    function isAdmin(req, res, next) {
+        console.log("isAdmin");
+        console.log(req.user);
+        if (req.isAuthenticated() && req.user.roles.indexOf("admin") > -1) {
+            console.log("user is admin");
+            next();
+        } else {
+            console.log("user is not admin");
+            res.status(403);
+        }
     }
 };
