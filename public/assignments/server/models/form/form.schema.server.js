@@ -6,9 +6,9 @@ module.exports = function (mongoose) {
             fields: [FieldSchema]
         },
         {
-            collection: 'form'
+            timestamps: {createdAt: 'created', updatedAt: 'updated'}
         },
         {
-            timestamps: {createdAt: 'created', updatedAt: 'updated'}
+            collection: 'form'
         });
 };
